@@ -122,7 +122,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroActionPerformed
-        control.registroCliente();
+        control.registroCliente(this);
     }//GEN-LAST:event_btnRegistroActionPerformed
 
     
