@@ -8,6 +8,8 @@ import com.mycompany.bancodominio.Cliente;
 import com.mycompany.banconegocio.DTOS.ClienteDTO;
 import com.mycompany.bancopersistencia.exception.persistenciaException;
 import com.mycompany.bancopersistencia.Conexion.IConexionBD;
+import com.mysql.cj.jdbc.CallableStatement;
+import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,7 +28,10 @@ public class ClienteDAO implements IClienteDAO{
     
     @Override
     public Cliente registraCliente(ClienteDTO cliente)throws persistenciaException{
-        
+        try(Connection co=this.c) {
+           
+        } catch (Exception e) {
+        }
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
