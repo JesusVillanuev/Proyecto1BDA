@@ -13,7 +13,7 @@ public class frmRegistro extends javax.swing.JFrame {
     /**
      * Creates new form frmRegistro
      */
-    public frmRegistro() {
+    public frmRegistro(java.awt.Frame parent,String title, boolean modal) {
         initComponents();
     }
 
