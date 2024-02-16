@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.bancopresentacion;
-
+import com.mycompany.banconegocio.DTOS.ClienteDTO;
 /**
  *
  * @author JESUS
@@ -13,7 +13,7 @@ public class frmRegistro extends javax.swing.JFrame {
     /**
      * Creates new form frmRegistro
      */
-    public frmRegistro(java.awt.Frame parent,String title, boolean modal) {
+    public frmRegistro(java.awt.Frame parent,String title, boolean modal,ClienteDTO cliente) {
         initComponents();
     }
 

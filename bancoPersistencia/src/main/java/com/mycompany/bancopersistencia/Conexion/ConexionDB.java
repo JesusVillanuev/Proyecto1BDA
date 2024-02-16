@@ -26,8 +26,6 @@ public class ConexionDB implements IConexionBD{
         this.contra = contra;
     }
     
-    
-
     @Override
     public Connection crearConexion() throws SQLException {
         Connection conexion = DriverManager.getConnection(cadenaConexion, usuario, contra);
