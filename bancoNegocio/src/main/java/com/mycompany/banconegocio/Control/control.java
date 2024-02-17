@@ -25,4 +25,8 @@ public class control {
         
         
     }
+    
+    public void menuPrincipal(JFrame frame){
+        
+    }
 }
