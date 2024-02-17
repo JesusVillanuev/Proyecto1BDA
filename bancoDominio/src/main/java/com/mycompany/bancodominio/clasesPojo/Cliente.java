@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.bancodominio;
+package com.mycompany.bancodominio.clasesPojo;
 
 /**
  *
@@ -29,7 +29,7 @@ public class Cliente {
     /**
      * Contructor sin id de cliente
      * @param usario usuario del cliente
-     * @param contraseña contraseña del cliente
+     * @param contraseña contraseÃ±a del cliente
      * @param fechaNacimiento fecha de nacimiento del cliente
      * @param nombres nombres del cliente
      * @param apellido_paterno apellido paterno del cliente
@@ -50,7 +50,7 @@ public class Cliente {
      * Constructor con todos los atributos del cliente
      * @param idCliente id del cliente
      * @param usario usuario del cliente
-     * @param contraseña contraseña del cliente
+     * @param contraseña contraseÃ±a del cliente
      * @param fechaNacimiento fecha de nacimiento del cliente
      * @param nombres nombres del cliente
      * @param apellido_paterno apellido paterno del cliente
@@ -101,18 +101,18 @@ public class Cliente {
     }
 
     /**
-     * Metodo que regresa la contraseña del cliente
-     * @return regresa la contraseña
+     * Metodo que regresa la contraseÃ±a del cliente
+     * @return regresa la contraseÃ±a
      */
-    public String getContraseña() {
+    public String getcontraseña() {
         return contraseña;
     }
 
     /**
-     * Metodo asigna la contraseña de un cliente
-     * @param contraseña contraseña a asignar
+     * Metodo asigna la contraseÃ±a de un cliente
+     * @param contraseña contraseÃ±a a asignar
      */
-    public void setContraseña(String contraseña) {
+    public void setcontraseña(String contraseña) {
         this.contraseña = contraseña;
     }
 
@@ -202,6 +202,6 @@ public class Cliente {
      */
     @Override
     public String toString() {
-        return "Cliente{" + "idCliente=" + idCliente + ", usario=" + usario + ", contrase\u00f1a=" + contraseña + ", fechaNacimiento=" + fechaNacimiento + ", nombres=" + nombres + ", apellido_paterno=" + apellido_paterno + ", apellido_materno=" + apellido_materno + ", domicilio=" + domicilio + '}';
+        return "Cliente{" + "idCliente=" + idCliente + ", usario=" + usario + ", contraseña=" + contraseña + ", fechaNacimiento=" + fechaNacimiento + ", nombres=" + nombres + ", apellido_paterno=" + apellido_paterno + ", apellido_materno=" + apellido_materno + ", domicilio=" + domicilio + '}';
     }
 }

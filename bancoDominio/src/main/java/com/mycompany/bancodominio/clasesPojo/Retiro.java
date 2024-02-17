@@ -2,14 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.bancodominio;
+package com.mycompany.bancodominio.clasesPojo;
 
 /**
  *
  * @author JESUS
  */
 public class Retiro {
-     //Atributos de la clase
+    //Atributos de la clase
     private int idOperacion;
     private int folio;
     private int contraseña;
@@ -26,7 +26,7 @@ public class Retiro {
     /**
      * Metodo constructor sin id
      * @param folio folio del retiro
-     * @param contraseña contraseño del retiro
+     * @param contraseña contraseÃ±o del retiro
      * @param fechaHoraLimite fecha hora limite del retiro
      * @param estado estado del retiro
      */
@@ -41,7 +41,7 @@ public class Retiro {
      * Metodo constructor con todos los datos
      * @param idOperacion identifiacodor del retiro
      * @param folio folio del retiro
-     * @param contraseña contraseño del retiro
+     * @param contraseña contraseÃ±o del retiro
      * @param fechaHoraLimite fecha hora limite del retiro
      * @param estado estado del retiro
      */
@@ -86,16 +86,16 @@ public class Retiro {
     }
 
     /**
-     * Metodo que regresa la contraseña del retiro
-     * @return regresa la contraseña
+     * Metodo que regresa la contraseÃ±a del retiro
+     * @return regresa la contraseÃ±a
      */
     public int getContraseña() {
         return contraseña;
     }
 
     /**
-     * Metodo que asigna la contraseña
-     * @param contraseña 
+     * Metodo que asigna la contraseÃ±a
+     * @param contraseÃ±a 
      */
     public void setContraseña(int contraseña) {
         this.contraseña = contraseña;
@@ -132,5 +132,5 @@ public class Retiro {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
+
 }
