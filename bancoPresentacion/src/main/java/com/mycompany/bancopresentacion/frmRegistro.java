@@ -3,17 +3,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.bancopresentacion;
-
+import com.mycompany.bancodominio.clasesPojo.Cliente;
 /**
  *
  * @author JESUS
  */
 public class frmRegistro extends javax.swing.JFrame {
-
+    Cliente cliente;
     /**
      * Creates new form frmRegistro
      */
-    public frmRegistro(java.awt.Frame parent,String title, boolean modal) {
+    public frmRegistro(java.awt.Frame parent,String title, boolean modal,Cliente cliente) {
+        
         initComponents();
     }
 
