@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package com.mycompany.bancodominio;
+package com.mycompany.bancopersistencia;
 
 /**
  *
  * @author JESUS
  */
-public class BancoDominio {
+public class BancoPersistencia {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");

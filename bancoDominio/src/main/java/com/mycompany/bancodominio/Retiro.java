@@ -5,11 +5,11 @@
 package com.mycompany.bancodominio;
 
 /**
- * Clase pojo de retiro
+ *
  * @author JESUS
  */
 public class Retiro {
-    //Atributos de la clase
+     //Atributos de la clase
     private int idOperacion;
     private int folio;
     private int contraseña;
@@ -132,7 +132,5 @@ public class Retiro {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
-    
     
 }

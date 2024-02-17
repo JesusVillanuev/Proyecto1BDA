@@ -9,23 +9,24 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
- * Clase conexion a la base de datos 
+ *
  * @author JESUS
  */
-public class ConexionDB implements IConexionBD{
-    
+public class ConexionBD implements IConexionBD{
     //Declaracion de Variables de la Clase Conexion 
     final private String cadenaConexion;
     final private String usuario;
     final private String contra;
-    private static final Logger LOG = Logger.getLogger(ConexionDB.class.getName());
+    private static final Logger LOG = Logger.getLogger(ConexionBD.class.getName());
 
-    public ConexionDB(String cadenaConexion, String usuario, String contra) {
+    public ConexionBD(String cadenaConexion, String usuario, String contra) {
         this.cadenaConexion = cadenaConexion;
         this.usuario = usuario;
         this.contra = contra;
     }
     
+    
+
     @Override
     public Connection crearConexion() throws SQLException {
         Connection conexion = DriverManager.getConnection(cadenaConexion, usuario, contra);

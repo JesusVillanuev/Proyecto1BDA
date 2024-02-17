@@ -4,22 +4,24 @@
  */
 package com.mycompany.bancopersistencia.DAOS;
 
-import com.mycompany.bancodominio.Cliente;
+ import com.mycompany.bancodominio.Cliente;
 import com.mycompany.banconegocio.DTOS.ClienteDTO;
-import com.mycompany.bancopersistencia.exception.persistenciaException;
+import com.mycompany.bancopersistencia.exception.PersistenciaException;
 import com.mycompany.bancopersistencia.Conexion.IConexionBD;
 import com.mysql.cj.jdbc.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+ 
 /**
  *
  * @author JESUS
  */
-public class ClienteDAO implements IClienteDAO{
+public class ClienteDAO implements IClienteDAO {
     
+    
+     
     IConexionBD conexionBD;
     private static final Logger LOG = Logger.getLogger(ClienteDAO.class.getName());
     
@@ -30,7 +32,7 @@ public class ClienteDAO implements IClienteDAO{
     
     
     @Override
-    public Cliente registraCliente(ClienteDTO cliente)throws persistenciaException{
+    public Cliente registraCliente(ClienteDTO cliente)throws PersistenciaException{
         try(Connection con=this.conexionBD.crearConexion();
             CallableStatement conn=(CallableStatement)con.prepareCall("{call sp_insertarClienteNuevo(?,?,?,?,?,?,?)}")  ) {
             
@@ -61,13 +63,13 @@ public class ClienteDAO implements IClienteDAO{
            
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "No se ha podido agregar el cliente",e);
-            throw new persistenciaException("No se pudo guardar", e);
+            throw new PersistenciaException("No se pudo guardar", e);
         }
         
     }
 
     @Override
-    public Cliente editarCliente(ClienteDTO cliente)throws persistenciaException{
+    public Cliente editarCliente(ClienteDTO cliente)throws PersistenciaException{
         try(Connection con=this.conexionBD.crearConexion();
             CallableStatement conn=(CallableStatement)con.prepareCall("{call sp_actualizar_cliente(?,?,?,?,?,?,?,?)}")  ) {
             
@@ -98,15 +100,16 @@ public class ClienteDAO implements IClienteDAO{
                 
                 return clienteNuevo;
             }else{
-                throw new persistenciaException("No se pudo actualizar el cliente. No se encontraron registros afectados");
+                throw new PersistenciaException("No se pudo actualizar el cliente. No se encontraron registros afectados");
             }
             
             
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "Error al actualizar el cliente");
-            throw new persistenciaException("Fallo al actualizar el cliente",e);
+            throw new PersistenciaException("Fallo al actualizar el cliente",e);
         }
         
     }
+     
     
 }

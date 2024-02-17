@@ -5,11 +5,11 @@
 package com.mycompany.bancodominio;
 
 /**
- * Clase pojo transferencia
+ *
  * @author JESUS
  */
 public class Transferencia {
-    //Atributos de la clase
+     //Atributos de la clase
     private int idOperacion;
 
     /**
@@ -41,6 +41,4 @@ public class Transferencia {
     public void setIdOperacion(int idOperacion) {
         this.idOperacion = idOperacion;
     }
-    
-    
 }

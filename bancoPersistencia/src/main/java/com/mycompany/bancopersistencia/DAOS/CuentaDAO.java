@@ -3,18 +3,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.bancopersistencia.DAOS;
-import com.mycompany.bancodominio.Cuenta;
+/**
+ * import com.mycompany.bancodominio.Cuenta;
 import com.mycompany.banconegocio.DTOS.CuentaDTO;
 import com.mycompany.bancopersistencia.exception.persistenciaException;
 import com.mycompany.bancopersistencia.Conexion.IConexionBD;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+ */
 /**
  *
  * @author JESUS
  */
-public class CuentaDAO implements ICuentaDAO{
-
+public class CuentaDAO {//implements ICuentaDAO
+    /*
     IConexionBD conexionBD;
     private static final Logger LOG = Logger.getLogger(CuentaDAO.class.getName());
     
@@ -36,7 +38,5 @@ public class CuentaDAO implements ICuentaDAO{
     public void MostrarTablaCuentas() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    
-    
+    */
 }

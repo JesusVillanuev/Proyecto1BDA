@@ -9,7 +9,7 @@ package com.mycompany.banconegocio.DTOS;
  * @author JESUS
  */
 public class ClienteDTO {
-    //Atributos de la clase
+     //Atributos de la clase
     private int idCliente;
     private String usario;
     private String contraseña;

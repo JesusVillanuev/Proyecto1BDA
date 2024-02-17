@@ -5,7 +5,7 @@
 package com.mycompany.bancodominio;
 
 /**
- * Clase pojo de operacion
+ *
  * @author JESUS
  */
 public class Operacion {
@@ -141,6 +141,4 @@ public class Operacion {
     public String toString() {
         return "Operacion{" + "idOperacion=" + idOperacion + ", tipo=" + tipo + ", fechaHora=" + fechaHora + ", monto=" + monto + ", idCuenta=" + idCuenta + '}';
     }
-    
-    
 }

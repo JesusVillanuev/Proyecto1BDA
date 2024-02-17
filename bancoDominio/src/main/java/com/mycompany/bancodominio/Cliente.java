@@ -5,11 +5,10 @@
 package com.mycompany.bancodominio;
 
 /**
- * Clase pojo de cliente
+ *
  * @author JESUS
  */
 public class Cliente {
-    
     //Atributos de la clase
     private int idCliente;
     private String usario;
@@ -205,7 +204,4 @@ public class Cliente {
     public String toString() {
         return "Cliente{" + "idCliente=" + idCliente + ", usario=" + usario + ", contrase\u00f1a=" + contraseña + ", fechaNacimiento=" + fechaNacimiento + ", nombres=" + nombres + ", apellido_paterno=" + apellido_paterno + ", apellido_materno=" + apellido_materno + ", domicilio=" + domicilio + '}';
     }
-    
-    
-    
 }

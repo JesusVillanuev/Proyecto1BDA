@@ -5,7 +5,7 @@
 package com.mycompany.bancodominio;
 
 /**
- * Clase pojo de la cuenta
+ *
  * @author JESUS
  */
 public class Cuenta {
@@ -161,8 +161,4 @@ public class Cuenta {
     public String toString() {
         return "Cuenta{" + "idCuenta=" + idCuenta + ", numeroCuenta=" + numeroCuenta + ", estado=" + estado + ", fechaApertura=" + fechaApertura + ", saldo=" + saldo + ", idCliente=" + idCliente + '}';
     }
-    
-    
-    
-    
 }

@@ -8,24 +8,24 @@ package com.mycompany.bancopersistencia.exception;
  *
  * @author JESUS
  */
-public class persistenciaException extends Exception{
+public class PersistenciaException extends Exception {
 
-    public persistenciaException() {
+    public PersistenciaException() {
     }
 
-    public persistenciaException(String string) {
+    public PersistenciaException(String string) {
         super(string);
     }
 
-    public persistenciaException(String string, Throwable thrwbl) {
+    public PersistenciaException(String string, Throwable thrwbl) {
         super(string, thrwbl);
     }
 
-    public persistenciaException(Throwable thrwbl) {
+    public PersistenciaException(Throwable thrwbl) {
         super(thrwbl);
     }
 
-    public persistenciaException(String string, Throwable thrwbl, boolean bln, boolean bln1) {
+    public PersistenciaException(String string, Throwable thrwbl, boolean bln, boolean bln1) {
         super(string, thrwbl, bln, bln1);
     }
     

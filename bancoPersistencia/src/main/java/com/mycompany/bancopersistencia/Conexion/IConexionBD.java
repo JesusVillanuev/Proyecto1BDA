@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
- * Interfaz Conexion BD
+ *
  * @author JESUS
  */
 public interface IConexionBD {
