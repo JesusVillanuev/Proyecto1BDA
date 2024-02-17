@@ -3,8 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.bancopersistencia.DAOS;
-/**
- * import com.mycompany.banconegocio.DTOS.ClienteDTO;
+import com.mycompany.bancodominio.clasesPojo.Cliente;
+import com.mycompany.banconegocio.DTOS.ClienteDTO;
 import com.mycompany.bancopersistencia.exception.PersistenciaException;
 import com.mycompany.bancopersistencia.Conexion.IConexionBD;
 import com.mysql.cj.jdbc.CallableStatement;
@@ -12,14 +12,13 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
- */
+ 
 /**
  *
  * @author JESUS
  */
-public class ClienteDAO {
-    /**
-     * IConexionBD conexionBD;
+public class ClienteDAO implements IClienteDAO{
+    IConexionBD conexionBD;
     private static final Logger LOG = Logger.getLogger(ClienteDAO.class.getName());
     
     public ClienteDAO(IConexionBD conexion){
@@ -105,5 +104,5 @@ public class ClienteDAO {
             LOG.log(Level.SEVERE, "Error al actualizar el cliente");
             throw new PersistenciaException("Fallo al actualizar el cliente",e);
         }
-     */
+    }
 }
