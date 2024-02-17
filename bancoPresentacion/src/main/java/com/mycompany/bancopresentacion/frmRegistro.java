@@ -4,17 +4,22 @@
  */
 package com.mycompany.bancopresentacion;
 import com.mycompany.bancodominio.clasesPojo.Cliente;
+import com.mycompany.bancopresentacion.validadores.validadores;
+
+
 /**
  *
  * @author JESUS
  */
 public class frmRegistro extends javax.swing.JFrame {
     Cliente cliente;
+    validadores validador;
     /**
      * Creates new form frmRegistro
      */
     public frmRegistro(java.awt.Frame parent,String title, boolean modal,Cliente cliente) {
-        
+        validador=new validadores();
+        this.cliente=cliente;
         initComponents();
     }
 
@@ -110,8 +115,18 @@ public class frmRegistro extends javax.swing.JFrame {
         jLabel11.setText("Contraseña");
 
         btnCrear.setText("Crear");
+        btnCrear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearActionPerformed(evt);
+            }
+        });
 
         btnVolver.setText("Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -227,6 +242,24 @@ public class frmRegistro extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
+        if (validador.validaNombre(txtNombre.getText()) && validador.validaNombre(txtApellidoP.getText()) && validador.validaNombre(txtApellidoM.getText()) 
+            && validador.validaDomicilio(txtDomicilio.getText()) && validador.validaUsuario(txtUsuario.getText()) && validador.validaContraseña(txtContraseña.getText())) {
+            cliente.setNombres(txtNombre.getText());
+            cliente.setApellido_paterno(txtApellidoP.getText());
+            cliente.setApellido_materno(txtApellidoM.getText());
+            cliente.setDomicilio(txtDomicilio.getText());
+            cliente.setUsario(txtUsuario.getText());
+            cliente.setcontraseña(txtContraseña.getText());
+            
+            
+        }
+    }//GEN-LAST:event_btnCrearActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnVolverActionPerformed
 
     
 

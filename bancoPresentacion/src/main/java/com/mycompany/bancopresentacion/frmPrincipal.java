@@ -3,17 +3,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.bancopresentacion;
-
+import com.mycompany.banconegocio.Control.control;
 /**
  *
  * @author JESUS
  */
 public class frmPrincipal extends javax.swing.JFrame {
-    
+    control control;
     /**
      * Creates new form frmPrincipal
      */
     public frmPrincipal() {
+        control=new control();
         initComponents();
         
     }
@@ -121,7 +122,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroActionPerformed
-        
+        control.agregarCliente(this);
     }//GEN-LAST:event_btnRegistroActionPerformed
 
     
