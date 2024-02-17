@@ -59,7 +59,7 @@ public class frmRegistro extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 3, 36)); // NOI18N
         jLabel1.setText("BANCO MPV");
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/bancopresentacion/imagenes/Acesso 111.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Acesso 111.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
