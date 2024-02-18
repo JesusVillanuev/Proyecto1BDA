@@ -28,5 +28,6 @@ public interface IClienteDAO {
      * @throws persistenciaException 
      */
     public Cliente editarCliente(ClienteDTO cliente)throws PersistenciaException;
-     
+    
+    public Cliente buscarUsuarioContra(ClienteDTO cliente)throws PersistenciaException;
 }

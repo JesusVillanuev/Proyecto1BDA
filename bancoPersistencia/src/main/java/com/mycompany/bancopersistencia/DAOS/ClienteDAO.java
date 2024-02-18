@@ -105,4 +105,20 @@ public class ClienteDAO implements IClienteDAO{
             throw new PersistenciaException("Fallo al actualizar el cliente",e);
         }
     }
+
+    @Override
+    public Cliente buscarUsuarioContra(ClienteDTO cliente) throws PersistenciaException {
+        try(Connection con=this.conexionBD.crearConexion();
+            CallableStatement conn=(CallableStatement)con.prepareCall("{call sp_IniciarSesion(?,?,?,?,?,?,?,?)}")  ) {
+            
+            
+            
+            return cliente;
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "Error al actualizar el cliente");
+            throw new PersistenciaException("Fallo al actualizar el cliente",e);
+        } 
+    }
+    
+    
 }
