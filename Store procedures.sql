@@ -58,4 +58,33 @@ BEGIN
 END && ;
 DELIMITER ;
 
+DELIMITER }}
+CREATE procedure sp_iniciarSesion(
+	IN p_usaurio varchar(30),
+	IN p_contra varchar(30),
+	out p_id int,
+	out p_nombres varchar(50),
+	out p_apellidoP varchar(50),
+	out p_apellidoM varchar(50),
+	out p_fechaNac date ,
+	out p_domicilio varchar(200)
 
+)
+BEGIN
+	DECLARE vExisteUsuario INT;
+	SELECT COUNT(*) INTO vExisteUsuario FROM usuarios WHERE usuario = pUsuario AND contrasena = pContrasena;
+    
+    if vExisteUsario = 1 then
+    select id_cliente,nombres,apellido_paterno,apellido_materno,domicilio,fecha_nacimiento into p_id,p_nombres,p_apellidoP,p_apeliidoM,p_domicilio,p_fechaNac 
+    from clientes where usuario = p_usario;
+    else
+     set p_id= 0;
+     set p_nombres= null;
+	 set p_apellidoP= null;
+	 set p_apellidoM= null;
+	 set p_fechaNac= null;
+	 set p_domicilio= null;
+     end if;
+     
+     end }};
+DELIMITER ;

@@ -10,6 +10,7 @@ import com.mycompany.bancopersistencia.Conexion.IConexionBD;
 import com.mysql.cj.jdbc.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.Types;
 import java.util.logging.Level;
 import java.util.logging.Logger;
  
@@ -109,14 +110,32 @@ public class ClienteDAO implements IClienteDAO{
     @Override
     public Cliente buscarUsuarioContra(ClienteDTO cliente) throws PersistenciaException {
         try(Connection con=this.conexionBD.crearConexion();
-            CallableStatement conn=(CallableStatement)con.prepareCall("{call sp_IniciarSesion(?,?,?,?,?,?,?,?)}")  ) {
+            CallableStatement conn=(CallableStatement)con.prepareCall("{call sp_iniciarSesion(?,?,?,?,?,?,?,?)}")  ) {
             
+            conn.setString(1, cliente.getUsario());
+            conn.setString(2, cliente.getContraseña());
             
+            conn.registerOutParameter(3, Types.INTEGER);
+            conn.registerOutParameter(4, Types.VARCHAR);
+            conn.registerOutParameter(5, Types.VARCHAR);
+            conn.registerOutParameter(6, Types.VARCHAR);
+            conn.registerOutParameter(7, Types.DATE);
+            conn.registerOutParameter(8, Types.VARCHAR);
             
-            return cliente;
+            Cliente clien=new Cliente();
+            clien.setUsario(cliente.getUsario());
+            clien.setcontraseña(cliente.getContraseña());
+            clien.setIdCliente(conn.getInt(3));
+            clien.setNombres(conn.getString(4));
+            clien.setApellido_paterno(conn.getString(5));
+            clien.setApellido_materno(conn.getString(6));
+            clien.setFechaNacimiento(conn.getDate(7).toString());
+            clien.setDomicilio(conn.getString(8));
+            
+            return clien;
         } catch (Exception e) {
-            LOG.log(Level.SEVERE, "Error al actualizar el cliente");
-            throw new PersistenciaException("Fallo al actualizar el cliente",e);
+            LOG.log(Level.SEVERE, "Error al buscar el cliente");
+            throw new PersistenciaException("Fallo al buscar el cliente",e);
         } 
     }
     

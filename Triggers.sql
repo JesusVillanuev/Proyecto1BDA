@@ -21,4 +21,9 @@ END$$
 
 DELIMITER ;
 
+DELIMITER {{
+CREATE TRIGGER modifica_saldo
+BEFORE INSERT ON cuentas
+
+DELIMITER ;
 

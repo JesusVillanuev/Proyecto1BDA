@@ -18,6 +18,7 @@ public class control {
    
     ClienteDTO G=new ClienteDTO();
     Cliente c=new Cliente();
+    
     public control(){
         
     }
@@ -36,11 +37,9 @@ public class control {
     }
     
     public void menuPrincipal(JFrame frame){
-        G.setNombres(c.getNombres());
-        JOptionPane.showMessageDialog(frame, "",""+G.getNombres(),JOptionPane.INFORMATION_MESSAGE);
-  
        frmMenuPrincipal menu=new frmMenuPrincipal(frame, "Menu principal", true, c);
-       
        menu.setVisible(true);
+       
+       
     }
 }
