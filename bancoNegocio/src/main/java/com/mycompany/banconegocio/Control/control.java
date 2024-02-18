@@ -6,20 +6,27 @@ package com.mycompany.banconegocio.Control;
 
 import com.mycompany.bancodominio.clasesPojo.Cliente;
 import com.mycompany.bancopersistencia.DTOS.ClienteDTO;
-import com.mycompany.bancopresentacion.frmRegistro;
+import com.mycompany.bancopresentacion.*;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author JESUS
  */
 public class control {
+   
+    ClienteDTO G=new ClienteDTO();
+    Cliente c=new Cliente();
+    public control(){
+        
+    }
     
-    ClienteDTO clienteG=new ClienteDTO();
     
     public void registrarCliente(JFrame frame){
-        Cliente clienteG=new Cliente();
-        frmRegistro registro= new frmRegistro(frame, "Registro del cliente", true,clienteG);
+       
+        frmRegistro registro= new frmRegistro(frame, "Registro del cliente", true,c);
+        
         registro.setVisible(true);
         
         
@@ -30,6 +37,12 @@ public class control {
     }
     
     public void menuPrincipal(JFrame frame){
+        G.setNombres(c.getNombres());
+        JOptionPane.showMessageDialog(frame, "",""+G.getNombres(),JOptionPane.INFORMATION_MESSAGE);
         
+        
+       frmMenuPrincipal menu=new frmMenuPrincipal(frame, "Menu principal", true, c);
+       
+       menu.setVisible(true);
     }
 }

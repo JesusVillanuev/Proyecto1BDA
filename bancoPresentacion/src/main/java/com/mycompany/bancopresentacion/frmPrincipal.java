@@ -67,6 +67,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         btnInicio.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         btnInicio.setText("Inicio sesion");
         btnInicio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInicioActionPerformed(evt);
+            }
+        });
 
         btnRetiro.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         btnRetiro.setText("Retiro sin tarjeta");
@@ -124,6 +129,10 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void btnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroActionPerformed
         control.registrarCliente(this);
     }//GEN-LAST:event_btnRegistroActionPerformed
+
+    private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        
+    }//GEN-LAST:event_btnInicioActionPerformed
 
     
 

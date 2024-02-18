@@ -5,7 +5,8 @@
 package com.mycompany.bancopresentacion;
 import com.mycompany.bancodominio.clasesPojo.Cliente;
 import com.mycompany.bancopresentacion.validadores.validadores;
-
+import com.mycompany.banconegocio.Control.control;
+import com.mycompany.bancopresentacion.frmMenuPrincipal;
 
 /**
  *
@@ -216,13 +217,13 @@ public class frmRegistro extends javax.swing.JFrame {
                         .addComponent(jLabel7)
                         .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
+                        .addGap(46, 46, 46)
                         .addComponent(btnCrear)
                         .addGap(18, 18, 18)
                         .addComponent(btnVolver)))
@@ -252,7 +253,7 @@ public class frmRegistro extends javax.swing.JFrame {
             cliente.setDomicilio(txtDomicilio.getText());
             cliente.setUsario(txtUsuario.getText());
             cliente.setcontraseña(txtContraseña.getText());
-            
+            dispose();
             
         }
     }//GEN-LAST:event_btnCrearActionPerformed
