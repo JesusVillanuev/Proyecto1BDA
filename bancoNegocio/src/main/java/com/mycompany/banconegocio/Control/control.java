@@ -17,12 +17,15 @@ public class control {
     
     ClienteDTO clienteG=new ClienteDTO();
     
-    public void agregarCliente(JFrame frame){
+    public void registrarCliente(JFrame frame){
         Cliente clienteG=new Cliente();
-        
         frmRegistro registro= new frmRegistro(frame, "Registro del cliente", true,clienteG);
         registro.setVisible(true);
         
+        
+    }
+    
+    public void iniciarSesion(JFrame frame){
         
     }
     

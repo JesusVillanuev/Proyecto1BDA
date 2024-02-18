@@ -3,18 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.bancopersistencia.DAOS;
-/*import com.mycompany.bancodominio.Cuenta;
-import com.mycompany.banconegocio.DTOS.CuentaDTO;
-import com.mycompany.bancopersistencia.exception.persistenciaException;
- */
+import com.mycompany.bancodominio.clasesPojo.Cuenta;
+import com.mycompany.bancopersistencia.DTOS.CuentaDTO;
+import com.mycompany.bancopersistencia.exception.PersistenciaException;
+ 
 /**
  *
  * @author JESUS
  */
 public interface ICuentaDAO {
-    /**
-     * public Cuenta crearCuenta(CuentaDTO cuenta)throws persistenciaException;
-    public Cuenta cancelarCuenta(CuentaDTO cuenta) throws persistenciaException;
-    public void MostrarTablaCuentas();
-     */
+    public Cuenta crearCuenta() throws PersistenciaException;
+    public Cuenta cancelarCuenta(CuentaDTO cuenta) throws PersistenciaException;
+    
+    
 }
