@@ -77,8 +77,21 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
             new String [] {
                 "No. cuenta", "Estado", "Fecha apertura", "Saldo"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(JCuenta);
+        if (JCuenta.getColumnModel().getColumnCount() > 0) {
+            JCuenta.getColumnModel().getColumn(1).setResizable(false);
+            JCuenta.getColumnModel().getColumn(2).setResizable(false);
+            JCuenta.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         btnDeposito.setText("Realizar deposito");
 

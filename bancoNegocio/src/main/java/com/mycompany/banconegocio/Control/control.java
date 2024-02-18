@@ -26,7 +26,6 @@ public class control {
     public void registrarCliente(JFrame frame){
        
         frmRegistro registro= new frmRegistro(frame, "Registro del cliente", true,c);
-        
         registro.setVisible(true);
         
         
@@ -39,8 +38,7 @@ public class control {
     public void menuPrincipal(JFrame frame){
         G.setNombres(c.getNombres());
         JOptionPane.showMessageDialog(frame, "",""+G.getNombres(),JOptionPane.INFORMATION_MESSAGE);
-        
-        
+  
        frmMenuPrincipal menu=new frmMenuPrincipal(frame, "Menu principal", true, c);
        
        menu.setVisible(true);
