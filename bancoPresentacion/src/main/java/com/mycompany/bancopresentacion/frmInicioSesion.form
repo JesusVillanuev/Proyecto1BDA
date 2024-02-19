@@ -52,7 +52,7 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="207" max="-2" attributes="0"/>
-                          <Component id="btn" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnAceptar" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -89,7 +89,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="txtContraseña" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="btn" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnAceptar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="57" max="32767" attributes="0"/>
                   <Component id="btnVolver" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
@@ -152,15 +152,21 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtContrase&#xf1;a">
         </Component>
-        <Component class="javax.swing.JButton" name="btn">
+        <Component class="javax.swing.JButton" name="btnAceptar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Aceptar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAceptarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnVolver">
           <Properties>
             <Property name="text" type="java.lang.String" value="Volver"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVolverActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -3,17 +3,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.bancopresentacion;
-
+import com.mycompany.bancodominio.clasesPojo.Cliente;
+import com.mycompany.bancopresentacion.validadores.validadores;
 /**
  *
  * @author JESUS
  */
 public class frmInicioSesion extends javax.swing.JFrame {
-
+    Cliente cliente;
+    validadores valida;
     /**
      * Creates new form frmInicioSesion
      */
-    public frmInicioSesion(java.awt.Frame parent,String title, boolean modal) {
+    public frmInicioSesion(java.awt.Frame parent,String title, boolean modal,Cliente cliente) {
+        this.cliente=cliente;
         initComponents();
     }
 
@@ -33,7 +36,7 @@ public class frmInicioSesion extends javax.swing.JFrame {
         txtUsuario = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtContraseña = new javax.swing.JTextField();
-        btn = new javax.swing.JButton();
+        btnAceptar = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -65,9 +68,19 @@ public class frmInicioSesion extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI Historic", 1, 24)); // NOI18N
         jLabel3.setText("Contraseña");
 
-        btn.setText("Aceptar");
+        btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
 
         btnVolver.setText("Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -81,7 +94,7 @@ public class frmInicioSesion extends javax.swing.JFrame {
                         .addComponent(btnVolver))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(207, 207, 207)
-                        .addComponent(btn)))
+                        .addComponent(btnAceptar)))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(158, Short.MAX_VALUE)
@@ -110,7 +123,7 @@ public class frmInicioSesion extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btn)
+                .addComponent(btnAceptar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addComponent(btnVolver)
                 .addGap(21, 21, 21))
@@ -130,10 +143,32 @@ public class frmInicioSesion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        
+            cliente.setUsario(txtUsuario.getText());
+            cliente.setcontraseña(txtContraseña.getText());
+            btnAceptar.setActionCommand("aceptar");
+        
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        btnVolver.setActionCommand("cancelar");
+        dispose();
+    }//GEN-LAST:event_btnVolverActionPerformed
+
+    
+    public String respuesta(){
+        if (btnAceptar.getActionCommand().equals("aceptar")) {
+            return "aceptar";
+        }
+        else{
+            return "cancelar";
+        }
+    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn;
+    private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

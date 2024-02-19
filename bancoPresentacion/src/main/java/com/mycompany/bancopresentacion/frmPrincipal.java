@@ -131,7 +131,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistroActionPerformed
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
-        
+        control.iniciarSesion(this);
     }//GEN-LAST:event_btnInicioActionPerformed
 
     

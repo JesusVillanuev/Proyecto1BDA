@@ -5,8 +5,8 @@
 package com.mycompany.bancopersistencia.DAOS;
 import com.mycompany.bancodominio.clasesPojo.Cliente;
 import com.mycompany.bancopersistencia.DTOS.ClienteDTO;
-import com.mycompany.bancopersistencia.exception.PersistenciaException;
-import com.mycompany.bancopersistencia.Conexion.IConexionBD;
+import com.mycompany.bancopersistencia.PersistenciaException.persistenciaException;
+import com.mycompany.bancopersistencia.Conexion.IConexioBD;
 import com.mysql.cj.jdbc.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -19,17 +19,17 @@ import java.util.logging.Logger;
  * @author JESUS
  */
 public class ClienteDAO implements IClienteDAO{
-    IConexionBD conexionBD;
+    IConexioBD conexionBD;
     private static final Logger LOG = Logger.getLogger(ClienteDAO.class.getName());
     
-    public ClienteDAO(IConexionBD conexion){
+    public ClienteDAO(IConexioBD conexion){
         this.conexionBD=conexion;
         
     }
     
     
     @Override
-    public Cliente registraCliente(ClienteDTO cliente)throws PersistenciaException{
+    public Cliente registraCliente(ClienteDTO cliente)throws persistenciaException{
         try(Connection con=this.conexionBD.crearConexion();
             CallableStatement conn=(CallableStatement)con.prepareCall("{call sp_insertarClienteNuevo(?,?,?,?,?,?,?)}")  ) {
             
@@ -44,10 +44,16 @@ public class ClienteDAO implements IClienteDAO{
             int registro=conn.executeUpdate();
             LOG.log(Level.INFO, "Se agregaron con éxito {0} ", registro);
             
-            ResultSet registroG=conn.getGeneratedKeys();
-            registroG.next();
             
-            Cliente clienteNuevo=new Cliente(registroG.getInt(1),
+            ResultSet registroG = conn.getGeneratedKeys();
+            int idGenerado = 0;
+            if (registroG.next()) {
+                idGenerado = registroG.getInt(1);
+            }
+
+            
+            
+            Cliente clienteNuevo=new Cliente(idGenerado ,
             cliente.getUsario(),
             cliente.getContraseña(), 
             cliente.getFechaNacimiento(), 
@@ -60,13 +66,13 @@ public class ClienteDAO implements IClienteDAO{
            
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "No se ha podido agregar el cliente",e);
-            throw new PersistenciaException("No se pudo guardar", e);
+            throw new persistenciaException("No se pudo guardar", e);
         }
         
     }
 
     @Override
-    public Cliente editarCliente(ClienteDTO cliente)throws PersistenciaException{
+    public Cliente editarCliente(ClienteDTO cliente)throws persistenciaException{
         try(Connection con=this.conexionBD.crearConexion();
             CallableStatement conn=(CallableStatement)con.prepareCall("{call sp_actualizar_cliente(?,?,?,?,?,?,?,?)}")  ) {
             
@@ -82,45 +88,46 @@ public class ClienteDAO implements IClienteDAO{
             int registro=conn.executeUpdate();
             LOG.log(Level.INFO, "Se actualizo con éxito {0} ", registro);
             
-            if (registro>0) {
-                ResultSet registroG=conn.getGeneratedKeys();
-                registroG.next();
-                
-                Cliente clienteNuevo=new Cliente(registroG.getInt(1),
-                cliente.getUsario(),
-                cliente.getContraseña(), 
-                cliente.getFechaNacimiento(), 
-                cliente.getNombres(), 
-                cliente.getApellido_paterno(), 
-                cliente.getApellido_materno(),
-                cliente.getDomicilio());
-                
-                return clienteNuevo;
-            }else{
-                throw new PersistenciaException("No se pudo actualizar el cliente. No se encontraron registros afectados");
-            }
             
+            ResultSet registroG = conn.getGeneratedKeys();
+            int idGenerado = 0;
+            if (registroG.next()) {
+                idGenerado = registroG.getInt(1);
+            }
+                
+            Cliente clienteNuevo=new Cliente(idGenerado,
+            cliente.getUsario(),
+            cliente.getContraseña(), 
+            cliente.getFechaNacimiento(), 
+            cliente.getNombres(), 
+            cliente.getApellido_paterno(), 
+            cliente.getApellido_materno(),
+            cliente.getDomicilio());
+                
+            return clienteNuevo;
             
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "Error al actualizar el cliente");
-            throw new PersistenciaException("Fallo al actualizar el cliente",e);
+            throw new persistenciaException("Fallo al actualizar el cliente",e);
         }
     }
 
     @Override
-    public Cliente buscarUsuarioContra(ClienteDTO cliente) throws PersistenciaException {
+    public Cliente buscarUsuarioContra(ClienteDTO cliente) throws persistenciaException {
         try(Connection con=this.conexionBD.crearConexion();
             CallableStatement conn=(CallableStatement)con.prepareCall("{call sp_iniciarSesion(?,?,?,?,?,?,?,?)}")  ) {
             
             conn.setString(1, cliente.getUsario());
             conn.setString(2, cliente.getContraseña());
             
-            conn.registerOutParameter(3, Types.INTEGER);
+            conn.registerOutParameter(3, Types.VARCHAR);
             conn.registerOutParameter(4, Types.VARCHAR);
             conn.registerOutParameter(5, Types.VARCHAR);
             conn.registerOutParameter(6, Types.VARCHAR);
             conn.registerOutParameter(7, Types.DATE);
             conn.registerOutParameter(8, Types.VARCHAR);
+            
+            conn.executeUpdate();
             
             Cliente clien=new Cliente();
             clien.setUsario(cliente.getUsario());
@@ -135,7 +142,7 @@ public class ClienteDAO implements IClienteDAO{
             return clien;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "Error al buscar el cliente");
-            throw new PersistenciaException("Fallo al buscar el cliente",e);
+            throw new persistenciaException("Fallo al buscar el cliente",e);
         } 
     }
     

@@ -19,6 +19,7 @@ public class frmRegistro extends javax.swing.JFrame {
      * Creates new form frmRegistro
      */
     public frmRegistro(java.awt.Frame parent,String title, boolean modal,Cliente cliente) {
+        
         validador=new validadores();
         this.cliente=cliente;
         initComponents();
@@ -253,15 +254,23 @@ public class frmRegistro extends javax.swing.JFrame {
             cliente.setDomicilio(txtDomicilio.getText());
             cliente.setUsario(txtUsuario.getText());
             cliente.setcontraseña(txtContraseña.getText());
+            btnCrear.setActionCommand("aceptar");
             dispose();
-            
         }
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
-
+    
+    public String respuesta(){
+        if (btnCrear.getActionCommand().equals("aceptar")) {
+            return "aceptar";
+        }
+        else{
+            return "cancelar";
+        }
+    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

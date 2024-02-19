@@ -5,15 +5,15 @@
 package com.mycompany.bancopersistencia.DAOS;
 import com.mycompany.bancodominio.clasesPojo.Cuenta;
 import com.mycompany.bancopersistencia.DTOS.CuentaDTO;
-import com.mycompany.bancopersistencia.exception.PersistenciaException;
+import com.mycompany.bancopersistencia.PersistenciaException.persistenciaException;
  
 /**
  *
  * @author JESUS
  */
 public interface ICuentaDAO {
-    public Cuenta crearCuenta() throws PersistenciaException;
-    public Cuenta cancelarCuenta(CuentaDTO cuenta) throws PersistenciaException;
+    public Cuenta crearCuenta(CuentaDTO cuenta) throws persistenciaException;
+    public Cuenta cancelarCuenta(CuentaDTO cuenta) throws persistenciaException;
     
     
 }

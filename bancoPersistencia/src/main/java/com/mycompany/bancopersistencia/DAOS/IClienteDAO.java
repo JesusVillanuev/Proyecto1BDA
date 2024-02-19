@@ -5,7 +5,7 @@
 package com.mycompany.bancopersistencia.DAOS;
 import com.mycompany.bancodominio.clasesPojo.Cliente;
 import com.mycompany.bancopersistencia.DTOS.ClienteDTO;
-import com.mycompany.bancopersistencia.exception.PersistenciaException;
+import com.mycompany.bancopersistencia.PersistenciaException.persistenciaException;
  
 /**
  *
@@ -19,7 +19,7 @@ public interface IClienteDAO {
      * @return
      * @throws persistenciaException 
      */
-    public Cliente registraCliente(ClienteDTO cliente)throws PersistenciaException;
+    public Cliente registraCliente(ClienteDTO cliente)throws persistenciaException;
     
     /*
      * Metodo que permite editar datos del cliente
@@ -27,7 +27,7 @@ public interface IClienteDAO {
      * @return
      * @throws persistenciaException 
      */
-    public Cliente editarCliente(ClienteDTO cliente)throws PersistenciaException;
+    public Cliente editarCliente(ClienteDTO cliente)throws persistenciaException;
     
-    public Cliente buscarUsuarioContra(ClienteDTO cliente)throws PersistenciaException;
+    public Cliente buscarUsuarioContra(ClienteDTO cliente)throws persistenciaException;
 }
