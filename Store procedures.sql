@@ -60,7 +60,7 @@ DELIMITER ;
 
 DELIMITER }}
 CREATE procedure sp_iniciarSesion(
-	IN p_usaurio varchar(30),
+	IN p_usuario varchar(30),
 	IN p_contra varchar(30),
 	out p_id int,
 	out p_nombres varchar(50),
@@ -72,11 +72,10 @@ CREATE procedure sp_iniciarSesion(
 )
 BEGIN
 	DECLARE vExisteUsuario INT;
-	SELECT COUNT(*) INTO vExisteUsuario FROM clientes WHERE usuario = pUsuario AND contrasena = pContrasena;
+	SELECT COUNT(*) INTO vExisteUsuario FROM clientes WHERE usuario = p_usuario AND contraseña = p_contra;
     
-    if vExisteUsario = 1 then
-    select id_cliente,nombres,apellido_paterno,apellido_materno,domicilio,fecha_nacimiento into p_id,p_nombres,p_apellidoP,p_apeliidoM,p_domicilio,p_fechaNac 
-    from clientes where usuario = p_usario;
+    if vExisteUsuario = 1 then
+    select id_cliente,nombres,apellido_paterno,apellido_materno,domicilio,fecha_nacimiento into p_id,p_nombres,p_apellidoP,p_apellidoM,p_domicilio,p_fechaNac from clientes where usuario = p_usuario;
     else
      set p_id= 0;
      set p_nombres= null;

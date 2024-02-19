@@ -15,7 +15,7 @@ BEFORE INSERT ON cuentas
 FOR EACH ROW
 BEGIN
     DECLARE numero_cuenta BIGINT;
-    SET numero_cuenta = FLOOR(100000000000 + RAND() * 900000000000); 
+    SET numero_cuenta = FLOOR(100000 + RAND() * 900000); 
     SET NEW.numero_cuenta = numero_cuenta; 
 END$$
 
