@@ -57,12 +57,15 @@ public class control {
     
     public void iniciarSesion(JFrame frame){
         
-        frmInicioSesion inicio=new frmInicioSesion(frame, "Inicio de sesion", true,cliente);
-        inicio.setVisible(true);
-        if (inicio.respuesta().equals("aceptar")) {
+        frmInicioSesion inicio=new frmInicioSesion(frame, "Inicio de sesion", true,cliente,this);
+        
+        
+        if (inicio.btnAceptar.isSelected()) {
+            
+            System.out.println("entra");
             JOptionPane.showConfirmDialog(null, "Deseas iniciar sesion con ese usuario?","confirmar",JOptionPane.OK_CANCEL_OPTION);
         }
-       
+       inicio.setVisible(true);
         
         
     }

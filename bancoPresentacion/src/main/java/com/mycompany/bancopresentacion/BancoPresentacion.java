@@ -3,7 +3,7 @@
  */
 
 package com.mycompany.bancopresentacion;
-
+import com.mycompany.bancopresentacion.validadores.validadores;
 /**
  *
  * @author JESUS

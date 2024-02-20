@@ -4,6 +4,7 @@
  */
 package com.mycompany.bancopresentacion;
 import com.mycompany.bancodominio.clasesPojo.Cliente;
+import com.mycompany.banconegocio.Control.control;
 import com.mycompany.bancopresentacion.validadores.validadores;
 import javax.swing.JOptionPane;
 /**
@@ -11,17 +12,18 @@ import javax.swing.JOptionPane;
  * @author JESUS
  */
 public class frmInicioSesion extends javax.swing.JFrame {
-    
+    control control;
     Cliente cliente;
     validadores valida;
     /**
      * Creates new form frmInicioSesion
      */
-    public frmInicioSesion(java.awt.Frame parent,String title, boolean modal,Cliente cliente) {
-        
+    public frmInicioSesion(java.awt.Frame parent,String title, boolean modal,Cliente cliente,control control) {
+        this.control=control;
         this.cliente=cliente;
         valida=new validadores();
         initComponents();
+        
     }
 
     /**
@@ -96,23 +98,23 @@ public class frmInicioSesion extends javax.swing.JFrame {
                 .addComponent(btnVolver)
                 .addGap(0, 403, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(198, 198, 198)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(200, 200, 200)
-                        .addComponent(btnAceptar)))
+                .addGap(198, 198, 198)
+                .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(9, 9, 9))
-                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(165, 165, 165))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(9, 9, 9))
+                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(165, 165, 165))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnAceptar)
+                        .addGap(202, 202, 202))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,31 +152,21 @@ public class frmInicioSesion extends javax.swing.JFrame {
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         
         if (valida.validaContraseña(txtContraseña.getText()) && valida.validaUsuario(txtUsuario.getText())) {
-            
             cliente.setUsario(txtUsuario.getText());
-            cliente.setcontraseña(txtContraseña.getText());
-            btnAceptar.setActionCommand("aceptar");
-        }        
+            cliente.setcontraseña(txtContraseña.getText());  
+        }   
+        
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        btnVolver.setActionCommand("cancelar");
         dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
-
     
-    public String respuesta(){
-        if (btnAceptar.getActionCommand().equals("aceptar")) {
-            return "aceptar";
-        }
-        else{
-            return "cancelar";
-        }
-    }
+    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAceptar;
+    public javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
