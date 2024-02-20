@@ -11,12 +11,14 @@ import javax.swing.JOptionPane;
  * @author JESUS
  */
 public class frmInicioSesion extends javax.swing.JFrame {
+    
     Cliente cliente;
     validadores valida;
     /**
      * Creates new form frmInicioSesion
      */
     public frmInicioSesion(java.awt.Frame parent,String title, boolean modal,Cliente cliente) {
+        
         this.cliente=cliente;
         valida=new validadores();
         initComponents();
@@ -146,11 +148,12 @@ public class frmInicioSesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        
         if (valida.validaContraseña(txtContraseña.getText()) && valida.validaUsuario(txtUsuario.getText())) {
-            btnAceptar.setActionCommand("aceptar");
+            
             cliente.setUsario(txtUsuario.getText());
             cliente.setcontraseña(txtContraseña.getText());
-            
+            btnAceptar.setActionCommand("aceptar");
         }        
     }//GEN-LAST:event_btnAceptarActionPerformed
 

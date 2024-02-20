@@ -4,18 +4,27 @@
  */
 package com.mycompany.bancopresentacion;
 import com.mycompany.bancodominio.clasesPojo.Cliente;
+import com.mycompany.bancodominio.clasesPojo.Cuenta;
+import com.mycompany.banconegocio.Control.control;
+import com.mycompany.bancopersistencia.PersistenciaException.persistenciaException;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author JESUS
  */
 public class frmMenuPrincipal extends javax.swing.JFrame {
+    DefaultTableModel tabla;
     Cliente cliente;
+    control control;
     /**
      * Creates new form frmMenuPrincipal
      */
     public frmMenuPrincipal(java.awt.Frame parent,String title, boolean modal,Cliente cliente) {
+        control=new control();
+        this.tabla=tabla;
         this.cliente=cliente;
-        
         initComponents();
         
     }
@@ -67,25 +76,6 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
 
-        JCuenta.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "No. cuenta", "Estado", "Fecha apertura", "Saldo"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                true, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
         jScrollPane1.setViewportView(JCuenta);
         if (JCuenta.getColumnModel().getColumnCount() > 0) {
             JCuenta.getColumnModel().getColumn(1).setResizable(false);
@@ -94,14 +84,39 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         }
 
         btnDeposito.setText("Realizar deposito");
+        btnDeposito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDepositoActionPerformed(evt);
+            }
+        });
 
         btnRetiro.setText("Retiro sin tarjeta");
+        btnRetiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRetiroActionPerformed(evt);
+            }
+        });
 
         btnTranseferencia.setText("Transferencia");
+        btnTranseferencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTranseferenciaActionPerformed(evt);
+            }
+        });
 
         btnHistorial.setText("Historial");
+        btnHistorial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHistorialActionPerformed(evt);
+            }
+        });
 
         btnCuentaNueva.setText("Nueva cuenta");
+        btnCuentaNueva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCuentaNuevaActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Historic", 2, 18)); // NOI18N
         jLabel2.setText("¿Deseas cancelar la cuenta?");
@@ -109,6 +124,11 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         btnCancelarCuenta.setText("Si, cancelar");
 
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         btnConfiguracion.setText("Co");
         btnConfiguracion.addActionListener(new java.awt.event.ActionListener() {
@@ -197,6 +217,30 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     private void btnConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfiguracionActionPerformed
         
     }//GEN-LAST:event_btnConfiguracionActionPerformed
+
+    private void btnDepositoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositoActionPerformed
+        
+    }//GEN-LAST:event_btnDepositoActionPerformed
+
+    private void btnRetiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetiroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRetiroActionPerformed
+
+    private void btnTranseferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTranseferenciaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTranseferenciaActionPerformed
+
+    private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnHistorialActionPerformed
+
+    private void btnCuentaNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCuentaNuevaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCuentaNuevaActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     
 

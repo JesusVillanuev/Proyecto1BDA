@@ -8,6 +8,7 @@ import com.mycompany.bancodominio.clasesPojo.*;
 import com.mycompany.bancopersistencia.DTOS.*;
 import com.mycompany.bancopersistencia.DAOS.*;
 import com.mycompany.bancopersistencia.PersistenciaException.persistenciaException;
+import java.util.List;
 /**
  *
  * @author JESUS
@@ -18,7 +19,7 @@ public class controlP {
     String contrasenia = "1234";
     IConexioBD conexionBD = new ConexionBD(cadenaConexion, usuario, contrasenia);
     IClienteDAO cliente=new ClienteDAO(conexionBD);
-    
+    ICuentaDAO cuenta=new CuentaDOA(conexionBD);
     
     public Cliente agregarCliente(ClienteDTO cliente) throws persistenciaException{
         Cliente cli=this.cliente.registraCliente(cliente);
@@ -35,4 +36,8 @@ public class controlP {
         return cli;
     }
     
+    public List<Cuenta> mostrarCuentas(int id)throws persistenciaException{
+        List<Cuenta> cuentas=this.cuenta.consultarCuentas(id);
+        return cuentas;
+    }
 }

@@ -87,3 +87,17 @@ BEGIN
      
      end }};
 DELIMITER ;
+
+DELIMITER ??
+CREATE procedure sp_todasCuentas(
+	in p_idC int,
+    out p_numero int,
+    out p_estado varchar(10),
+    out p_fecha date,
+    out p_saldo float
+)
+BEGIN
+	Select numero_cuenta,estado,fecha_apertura,saldo into p_numero,p_estado,p_fecha,p_saldo from cuentas where id_cliente=p_idC;
+end??
+
+DELIMITER ;
