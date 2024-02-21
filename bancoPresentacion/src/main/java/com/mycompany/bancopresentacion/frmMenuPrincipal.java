@@ -21,7 +21,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form frmMenuPrincipal
      */
-    public frmMenuPrincipal(java.awt.Frame parent,String title, boolean modal,Cliente cliente) {
+    public frmMenuPrincipal(java.awt.Frame parent,String title, boolean modal,Cliente cliente,DefaultTableModel tabla) {
         control=new control();
         this.tabla=tabla;
         this.cliente=cliente;
@@ -76,6 +76,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
 
+        JCuenta.setModel(tabla);
         jScrollPane1.setViewportView(JCuenta);
         if (JCuenta.getColumnModel().getColumnCount() > 0) {
             JCuenta.getColumnModel().getColumn(1).setResizable(false);

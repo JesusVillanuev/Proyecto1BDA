@@ -101,7 +101,7 @@ public class CuentaDOA implements ICuentaDAO{
             resultado.next();
             
             while(resultado.next()){
-                int numero=resultado.getShort("numero_cuenta");
+                int numero=resultado.getInt("numero_cuenta");
                 String estado=resultado.getString("estado");
                 String fecha=resultado.getDate("fecha_apertura").toString();
                 float saldo=resultado.getFloat("saldo");

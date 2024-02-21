@@ -12,8 +12,8 @@ import javax.swing.JOptionPane;
  * @author JESUS
  */
 public class frmInicioSesion extends javax.swing.JFrame {
-    control control;
     Cliente cliente;
+    control control;
     validadores valida;
     /**
      * Creates new form frmInicioSesion
@@ -153,16 +153,25 @@ public class frmInicioSesion extends javax.swing.JFrame {
         
         if (valida.validaContraseña(txtContraseña.getText()) && valida.validaUsuario(txtUsuario.getText())) {
             cliente.setUsario(txtUsuario.getText());
-            cliente.setcontraseña(txtContraseña.getText());  
-        }   
+            cliente.setcontraseña(txtContraseña.getText());
+            control.iniciarsesion(cliente);
+            
+        }
         
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        btnAceptar.setActionCommand("cancelar");
         dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
     
-    
+    public String respuesta(){
+        if (btnAceptar.getActionCommand().equals("aceptar")) {
+            return "aceptar";
+        } else {
+            return "cancelar";
+        }
+    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

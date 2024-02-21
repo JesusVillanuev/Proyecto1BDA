@@ -119,7 +119,7 @@ CREATE procedure sp_movimientoTransferencia(
     in p_monto float(10.2)
 )
 begin
-	declare p_salodoO float(10.2);
+	declare p_saldoO float(10.2);
     declare p_saldoD float(10.2);
     declare p_idCuentaO int;
     declare p_idCuentaD int;
@@ -143,3 +143,20 @@ begin
 
 end!!
 DELIMITER ;
+/*
+DELIMITER ¡¡
+CREATE procedure sp_generarRetiro(
+	in p_idCuenta int,
+    in p_monto float(10.2),
+    out p_folio int,
+    out p_contraseña int
+
+)
+begin
+	Declare p_fechaS datetime;
+    declare p_fechaL datetime;
+    declare p_
+
+
+end ¡¡
+DELIMITER ;*/

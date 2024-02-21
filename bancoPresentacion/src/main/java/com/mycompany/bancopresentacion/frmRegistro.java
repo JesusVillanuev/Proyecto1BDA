@@ -6,7 +6,7 @@ package com.mycompany.bancopresentacion;
 import com.mycompany.bancodominio.clasesPojo.Cliente;
 import com.mycompany.bancopresentacion.validadores.validadores;
 import com.mycompany.banconegocio.Control.control;
-import com.mycompany.bancopresentacion.frmMenuPrincipal;
+
 import java.text.SimpleDateFormat;
 
 /**
@@ -15,12 +15,13 @@ import java.text.SimpleDateFormat;
  */
 public class frmRegistro extends javax.swing.JFrame {
     Cliente cliente;
+    
     validadores validador;
     /**
      * Creates new form frmRegistro
      */
     public frmRegistro(java.awt.Frame parent,String title, boolean modal,Cliente cliente) {
-        
+        super();
         validador=new validadores();
         this.cliente=cliente;
         initComponents();
@@ -293,6 +294,7 @@ public class frmRegistro extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        btnCrear.setActionCommand("cancelar");
         dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 

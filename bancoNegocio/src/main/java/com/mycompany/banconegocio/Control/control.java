@@ -29,7 +29,7 @@ public class control {
     controlP con=new controlP();
     Cliente cliente=new Cliente();
     Cuenta cuenta=new Cuenta();
-    ArrayList<Cuenta> lista = new ArrayList<>();
+    
     
     public control(){
         
@@ -55,24 +55,41 @@ public class control {
         
     }
     
-    public void iniciarSesion(JFrame frame){
+    public void iniciarsesion(Cliente cliente){
+        int respuesta = JOptionPane.showConfirmDialog(null, "¿Deseas iniciar sesión con ese usuario?", "Confirmar", JOptionPane.OK_CANCEL_OPTION);
+        if (respuesta==JOptionPane.OK_OPTION) {
+            this.cliente=cliente;
+        }
+    }
+    
+    
+    public void abririniciarSesion(JFrame frame) throws persistenciaException{
         
         frmInicioSesion inicio=new frmInicioSesion(frame, "Inicio de sesion", true,cliente,this);
+        inicio.setVisible(true);
         
-        
-        if (inicio.btnAceptar.isSelected()) {
+        if (cliente.getUsario()!=null && cliente.getcontraseña()!=null) {
             
-            System.out.println("entra");
-            JOptionPane.showConfirmDialog(null, "Deseas iniciar sesion con ese usuario?","confirmar",JOptionPane.OK_CANCEL_OPTION);
+            ClienteDTO cli=new ClienteDTO();
+            cli.setUsario(cliente.getUsario());
+            cli.setContraseña(cliente.getcontraseña());
+            cliente=con.InicioSesion(cli);
+            if (cliente.getUsario()!=null) {
+                JOptionPane.showMessageDialog(null, "Inicio exitoso");
+                menuPrincipal(frame, cliente);
+            }else{
+                JOptionPane.showMessageDialog(null, "Contraseña o usuario incorrecto");
+            }
         }
-       inicio.setVisible(true);
+        
+        
         
         
     }
     
-    public void menuPrincipal(JFrame frame) throws persistenciaException{
+    public void menuPrincipal(JFrame frame,Cliente cliente) throws persistenciaException{
        
-       DefaultTableModel tabla=new DefaultTableModel();
+        DefaultTableModel tabla=new DefaultTableModel();
         List<Cuenta> listaCuentas = con.mostrarCuentas(cliente.getIdCliente());
         JTable table = new JTable(tabla);
         tabla.addColumn("Número de Cuenta");
@@ -83,13 +100,10 @@ public class control {
             Object[] rowData = {cuenta.getNumeroCuenta(), cuenta.getEstado(), cuenta.getFechaApertura(), cuenta.getSaldo()};
             tabla.addRow(rowData);
         }
-       frmMenuPrincipal menu=new frmMenuPrincipal(frame, "Menu principal", true, cliente);
+       frmMenuPrincipal menu=new frmMenuPrincipal(frame, "Menu principal", true, cliente,tabla);
        menu.setVisible(true);
        
        
     }
-
-    public void llenarTabla(int id) throws persistenciaException{
-        
-    }
+   
 }

@@ -4,6 +4,9 @@
  */
 package com.mycompany.bancopresentacion;
 import com.mycompany.banconegocio.Control.control;
+import com.mycompany.bancopersistencia.PersistenciaException.persistenciaException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author JESUS
@@ -131,7 +134,11 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistroActionPerformed
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
-        control.iniciarSesion(this);
+        try {
+            control.abririniciarSesion(this);
+        } catch (persistenciaException ex) {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnInicioActionPerformed
 
     
