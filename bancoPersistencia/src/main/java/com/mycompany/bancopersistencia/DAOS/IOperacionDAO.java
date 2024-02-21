@@ -18,7 +18,7 @@ import java.util.List;
  * @author JESUS
  */
 public interface IOperacionDAO {
-    public Operacion transferencia(CuentaDTO cuenta,int numeroDirigido)throws persistenciaException;
+    public void transferencia(CuentaDTO cuenta,int numeroDirigido,float monto)throws persistenciaException;
     public List<Operacion> listaOperaciones(CuentaDTO cuenta)throws persistenciaException;
     public Operacion generarRetiro(CuentaDTO cuenta)throws persistenciaException;
     public Operacion realizarRetiro(int folio,int contraseña)throws persistenciaException;

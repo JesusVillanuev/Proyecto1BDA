@@ -142,7 +142,7 @@ public class frmDeposito extends javax.swing.JFrame {
         if (valida.validaMonto(txtMonto.getText())) {
             float monto=Float.parseFloat(txtMonto.getText());
             try {
-                control.depositar(monto, id);
+               control.depositar(monto, id);
                this.dispose();
             } catch (persistenciaException ex) {
                 Logger.getLogger(frmDeposito.class.getName()).log(Level.SEVERE, null, ex);

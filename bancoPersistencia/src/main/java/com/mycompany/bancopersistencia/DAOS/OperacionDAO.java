@@ -34,8 +34,18 @@ public class OperacionDAO implements IOperacionDAO{
     }
 
     @Override
-    public Operacion transferencia(CuentaDTO cuenta, int numeroDirigido) throws persistenciaException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void transferencia(CuentaDTO cuenta, int numeroDirigido,float monto) throws persistenciaException {
+        try(Connection con=this.conexionBD.crearConexion();
+            CallableStatement conn=(CallableStatement)con.prepareCall("{call sp_movimientoTransferencia(?,?,?)}")) {
+            conn.setInt(1, cuenta.getNumeroCuenta());
+            conn.setInt(2, numeroDirigido);
+            conn.setFloat(3, monto);
+            conn.executeUpdate();
+            System.out.println("Transferencia exitosa");
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "Error al buscar numero de cuenta", e);
+            throw new persistenciaException("Error al buscar al cliente", e);
+        }
     }
 
     @Override

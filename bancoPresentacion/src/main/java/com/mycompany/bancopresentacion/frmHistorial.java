@@ -94,6 +94,11 @@ public class frmHistorial extends javax.swing.JFrame {
         });
 
         btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -173,6 +178,10 @@ public class frmHistorial extends javax.swing.JFrame {
         }
         actualizarTablaOperaciones(operaciones);
     }//GEN-LAST:event_btnRetiroActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void actualizarTablaOperaciones(List<Operacion> operacionesFiltradas) {
         DefaultTableModel modeloTabla = (DefaultTableModel) jHistorial.getModel();

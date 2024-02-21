@@ -4,16 +4,29 @@
  */
 package com.mycompany.bancopresentacion;
 
+import com.mycompany.banconegocio.Control.control;
+import com.mycompany.bancopersistencia.PersistenciaException.persistenciaException;
+import com.mycompany.bancopresentacion.validadores.validadores;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author JESUS
  */
 public class frmTransferencia extends javax.swing.JFrame {
-
+    control control;
+    validadores vali;
+    int numero;
     /**
      * Creates new form frmOperacion
      */
-    public frmTransferencia() {
+    public frmTransferencia(JFrame parent,String title, boolean modal,int nCuenta,control control) {
+        this.control=control;
+        numero=nCuenta;
+        vali=new validadores();
         initComponents();
     }
 
@@ -66,8 +79,18 @@ public class frmTransferencia extends javax.swing.JFrame {
         jLabel3.setText("Ingrese el no. cuenta destino");
 
         btnVolver.setText("Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
 
         btnConfimar.setText("Confirmar");
+        btnConfimar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfimarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -121,6 +144,27 @@ public class frmTransferencia extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnConfimarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfimarActionPerformed
+        if (vali.validaNumeroCuenta(txtCuentaD.getText())&&vali.validaMonto(txtMonto.getText())) {
+            int cuentaD=Integer.parseInt(txtCuentaD.getText());
+            float monto=Float.parseFloat(txtMonto.getText());
+            try {
+                control.realizarTransferencia(numero,cuentaD , monto);
+                JOptionPane.showMessageDialog(null, "Se realizo la transferencia");
+                dispose();
+            } catch (persistenciaException ex) {
+                JOptionPane.showMessageDialog(null, "Numero de cuenta incorrecto o saldo ");
+                Logger.getLogger(frmTransferencia.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Numero de cuenta incorrecto o saldo ");
+        }
+    }//GEN-LAST:event_btnConfimarActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnVolverActionPerformed
 
     
 

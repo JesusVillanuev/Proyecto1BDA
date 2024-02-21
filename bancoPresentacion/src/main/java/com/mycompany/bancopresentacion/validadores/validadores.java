@@ -15,6 +15,8 @@ public class validadores {
     private static final Pattern patronUsuario = Pattern.compile("^[a-zA-Z0-9]{1,30}$");
     private static final Pattern patronContrasena = Pattern.compile("^[a-zA-Z0-9]{1,30}$");
     private static final Pattern patronMonto = Pattern.compile("^\\d{1,10}(\\.\\d{1,2})?$");
+    private static final Pattern patronNumeroCuenta = Pattern.compile("^\\d{6}$");
+
     
     public validadores(){
         
@@ -38,6 +40,10 @@ public class validadores {
     
     public boolean validaMonto(String monto) {
         return patronMonto.matcher(monto).matches();
+    }
+    
+    public boolean validaNumeroCuenta(String numeroCuenta) {
+        return patronNumeroCuenta.matcher(numeroCuenta).matches();
     }
     
 }

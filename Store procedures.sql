@@ -112,35 +112,43 @@ end ll
 DELIMITER ;
 
 DELIMITER !!
-CREATE procedure sp_movimientoTransferencia(
-	in p_numeroCuentaO int,
-	in p_numeroCuentaD int,
-    in p_monto float(10.2)
+CREATE PROCEDURE sp_movimientoTransferencia(
+    IN p_numeroCuentaO INT,
+    IN p_numeroCuentaD INT,
+    IN p_monto DECIMAL(10, 2)
 )
-begin
-	declare p_saldoO float(10.2);
-    declare p_saldoD float(10.2);
-    declare p_idCuentaO int;
-    declare p_idCuentaD int;
-    
-    START transaction;
-    select saldo,id_cuenta into p_saldoO,p_idCuentaO from cuentas where numero_cuenta=p_numeroCuentaO;
-    if p_saldoO < p_monto then
-		rollback;
-	end if;
-    
-    select id_cuenta,saldo into p_idCuentaD,p_saldoD from cuentas where numero_cuenta=p_numeroCuentaD;
-    if p_idCuentaD is null then
-		rollback;
-	end if;
-    
-    update cuentas set saldo = saldo - p_monto where id_cuenta=p_idCuentaO;
-    update cuentas set saldo = saldo + p_monto where id_cuenta=p_idCuentaD;
-	insert into operaciones(tipo,fecha_hora,monto,idCuenta)values('Transferencia',now(),p_monto,p_idCuentaO);
-    set @id_operacion = last_insert_id();
-    insert into transferencias(id_operacion)values(@id_operacion);
+BEGIN
+    DECLARE p_saldoO DECIMAL(10, 2);
+    DECLARE p_saldoD DECIMAL(10, 2);
+    DECLARE p_idCuentaO INT;
+    DECLARE p_idCuentaD INT;
 
-end!!
+    START TRANSACTION;
+
+    SELECT saldo, id_cuenta INTO p_saldoO, p_idCuentaO FROM cuentas WHERE numero_cuenta = p_numeroCuentaO;
+
+    IF p_saldoO IS NULL OR p_saldoO < p_monto THEN
+        ROLLBACK;
+    ELSE
+        SELECT id_cuenta INTO p_idCuentaD FROM cuentas WHERE numero_cuenta = p_numeroCuentaD;
+
+        IF p_idCuentaD IS NULL THEN
+            ROLLBACK;
+        ELSE
+
+            UPDATE cuentas SET saldo = saldo - p_monto WHERE id_cuenta = p_idCuentaO;
+            UPDATE cuentas SET saldo = saldo + p_monto WHERE id_cuenta = p_idCuentaD;
+
+            INSERT INTO operaciones (tipo, fecha_hora, monto, id_cuenta) VALUES ('Transferencia', NOW(), p_monto, p_idCuentaO);
+            SET @id_operacion = LAST_INSERT_ID();
+
+            INSERT INTO transferencias (id_operacion) VALUES (@id_operacion);
+
+            
+            COMMIT;
+        END IF;
+    END IF;
+END!!
 DELIMITER ;
 
 

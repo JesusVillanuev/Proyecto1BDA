@@ -60,4 +60,8 @@ public class controlP {
         Operacion op=this.operacion.depositar(cuenta, monto);
         return op;
     }
+    
+    public void transferencia(CuentaDTO cuenta,int cuentaDestino,float monto)throws persistenciaException{
+        this.operacion.transferencia(cuenta, cuentaDestino, monto);
+    }
 }

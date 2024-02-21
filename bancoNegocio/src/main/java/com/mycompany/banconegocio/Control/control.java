@@ -154,7 +154,7 @@ public class control {
         return operacionesTransferencia;
     }
     
-    public void deposito(JFrame frame, int id){
+    public void mostrardeposito(JFrame frame, int id){
         
         frmDeposito depo=new frmDeposito(frame,"Deposito",true,id,this);
         depo.setVisible(true);
@@ -193,5 +193,17 @@ public class control {
         } catch (Exception e) {
             throw new persistenciaException("Error al actualizar la tabla", e);
         }
+    }
+    
+    public void mostrarTransferenciaPantalla(JFrame frame,int cuenta){
+        frmTransferencia tras=new frmTransferencia(frame, "Transeferencia", true,cuenta,this);
+        tras.setVisible(true);
+    }
+    
+    public void realizarTransferencia(int numeroC,int cuentaD,float monto) throws persistenciaException{
+        CuentaDTO cuenta=new CuentaDTO();
+        cuenta.setNumeroCuenta(numeroC);
+        con.transferencia(cuenta, cuentaD, monto);
+        
     }
 }
