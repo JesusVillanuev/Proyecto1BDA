@@ -111,3 +111,35 @@ begin
 	SELECT LAST_INSERT_ID() INTO p_numero;
 end ll
 DELIMITER ;
+
+DELIMITER !!
+CREATE procedure sp_movimientoTransferencia(
+	in p_numeroCuentaO int,
+	in p_numeroCuentaD int,
+    in p_monto float(10.2)
+)
+begin
+	declare p_salodoO float(10.2);
+    declare p_saldoD float(10.2);
+    declare p_idCuentaO int;
+    declare p_idCuentaD int;
+    
+    START transaction;
+    select saldo,id_cuenta into p_saldoO,p_idCuentaO from cuentas where numero_cuenta=p_numeroCuentaO;
+    if p_saldoO < p_monto then
+		rollback;
+	end if;
+    
+    select id_cuenta,saldo into p_idCuentaD,p_saldoD from cuentas where numero_cuenta=p_numeroCuentaD;
+    if p_idCuentaD is null then
+		rollback;
+	end if;
+    
+    update cuentas set saldo = saldo - p_monto where id_cuenta=p_idCuentaO;
+    update cuentas set saldo = saldo + p_monto where id_cuenta=p_idCuentaD;
+	insert into operaciones(tipo,fecha_hora,monto,idCuenta)values('Transferencia',now(),p_monto,p_idCuentaO);
+    set @id_operacion = last_insert_id();
+    insert into transferencias(id_operacion)values(@id_operacion);
+
+end!!
+DELIMITER ;

@@ -43,3 +43,8 @@ CREATE TABLE IF NOT EXISTS Retiros(
     FOREIGN KEY (id_operacion) REFERENCES Operaciones(id_operacion)
 
 );
+
+CREATE TABLE IF NOT EXISTS Transferencias(
+	id_operacion int PRIMARY KEY,
+	FOREIGN KEY (id_operacion) REFERENCES Operaciones(id_operacion)
+);
