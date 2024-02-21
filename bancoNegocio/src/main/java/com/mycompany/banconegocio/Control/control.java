@@ -18,7 +18,10 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JViewport;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -86,22 +89,109 @@ public class control {
     
     public void menuPrincipal(JFrame frame,Cliente cliente) throws persistenciaException{
        
-        DefaultTableModel tabla=new DefaultTableModel();
-        List<Cuenta> listaCuentas = con.mostrarCuentas(cliente.getIdCliente());
-        JTable table = new JTable(tabla);
-        tabla.addColumn("Número de Cuenta");
-        tabla.addColumn("Estado");
-        tabla.addColumn("Fecha de Apertura");
-        tabla.addColumn("Saldo");
-        for (Cuenta cuenta : listaCuentas) {
-            System.out.println(cuenta.getEstado()+"x");
-            Object[] rowData = {cuenta.getNumeroCuenta(), cuenta.getEstado(), cuenta.getFechaApertura(), cuenta.getSaldo()};
-            tabla.addRow(rowData);
-        }
-       frmMenuPrincipal menu=new frmMenuPrincipal(frame, "Menu principal", true, cliente,tabla);
+        DefaultTableModel tablaModelo = new DefaultTableModel();
+        JTable tabla = new JTable(tablaModelo);
+        tablaModelo.addColumn("Id cuenta");
+        tablaModelo.addColumn("Número de Cuenta");
+        tablaModelo.addColumn("Estado");
+        tablaModelo.addColumn("Fecha de Apertura");
+        tablaModelo.addColumn("Saldo");
+
+        actualizarTabla(tablaModelo, cliente);
+         Thread hiloActualizacion = new Thread(() -> {
+            while (true) {
+                try {
+                    Thread.sleep(5000); // Actualizar cada 5 segundos
+                    SwingUtilities.invokeLater(() -> {
+                        try {
+                            actualizarTabla(tablaModelo, cliente); // Actualizar la tabla periódicamente
+                        } catch (persistenciaException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        hiloActualizacion.start();
+       frmMenuPrincipal menu=new frmMenuPrincipal(frame, "Menu principal", true, cliente,tablaModelo,cuenta);
        menu.setVisible(true);
        
        
     }
-   
+    
+    public void mostrarHistorial(JFrame frame,int id) throws persistenciaException{
+        
+        CuentaDTO cuenta=new CuentaDTO();
+        cuenta.setIdCuenta(id);
+        DefaultTableModel tabla = new DefaultTableModel();
+        List<Operacion> listaOperaciones = con.consultaOperacion(cuenta);
+        JTable table = new JTable(tabla);
+        tabla.addColumn("Tipo");
+        tabla.addColumn("Fecha y Hora");
+        tabla.addColumn("Monto");
+        for (Operacion operacion : listaOperaciones) {
+            Object[] rowData = {operacion.getTipo(), operacion.getFechaHora(), operacion.getMonto()};
+            tabla.addRow(rowData);
+        }
+        frmHistorial historia=new frmHistorial(frame,"Historial",true,cliente,tabla,id,this);
+        historia.setVisible(true);
+    }
+    
+    public List<Operacion> mostrarTransferencia(int id, String tipo) throws persistenciaException {
+        CuentaDTO cuenta = new CuentaDTO();
+        cuenta.setIdCuenta(id);
+        List<Operacion> listaOperaciones = con.consultaOperacion(cuenta);
+        List<Operacion> operacionesTransferencia = new ArrayList<>();
+
+        for (Operacion operacion : listaOperaciones) {
+            if (operacion.getTipo().equals(tipo)) {
+                operacionesTransferencia.add(operacion);
+            }
+        }
+
+        return operacionesTransferencia;
+    }
+    
+    public void deposito(JFrame frame, int id){
+        
+        frmDeposito depo=new frmDeposito(frame,"Deposito",true,id,this);
+        depo.setVisible(true);
+    }
+    
+    public void depositar(float monto,int id) throws persistenciaException{
+        CuentaDTO cuenta=new CuentaDTO();
+        cuenta.setIdCuenta(id);
+        Operacion opera=con.depositar(cuenta, monto);
+        if (opera.getTipo().equals("Depósito")) {
+            JOptionPane.showMessageDialog(null, "Se ha agregado el dinero");
+        }
+    }
+    
+    public void cancelar(int id) throws persistenciaException{
+        CuentaDTO cuenta=new CuentaDTO();
+        cuenta.setIdCuenta(id);
+        con.cancelarCuenta(cuenta);
+    }
+    
+    public void agregarNueva(Cliente cliente) throws persistenciaException{
+        ClienteDTO nuevo=new ClienteDTO();
+        nuevo.setIdCliente(cliente.getIdCliente());
+        con.crearCuenta(nuevo);
+        JOptionPane.showMessageDialog(null, "Se ha creado una nueva cuenta");
+    }
+    
+    private void actualizarTabla(DefaultTableModel tabla, Cliente cliente) throws persistenciaException {
+        try {
+            List<Cuenta> listaCuentas = con.mostrarCuentas(cliente.getIdCliente());
+            tabla.setRowCount(0); // Limpiar la tabla antes de actualizarla
+            for (Cuenta cuenta : listaCuentas) {
+                Object[] rowData = {cuenta.getIdCuenta(), cuenta.getNumeroCuenta(), cuenta.getEstado(), cuenta.getFechaApertura(), cuenta.getSaldo()};
+                tabla.addRow(rowData);
+            }
+        } catch (Exception e) {
+            throw new persistenciaException("Error al actualizar la tabla", e);
+        }
+    }
 }

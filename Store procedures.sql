@@ -103,12 +103,11 @@ DELIMITER ;
 
 DELIMITER ll
 create procedure sp_crearCuenta(
-	in p_idCliente int,
-	out p_numero int
+	in p_idCliente int
 )
 begin
 	insert into cuentas(estado,fecha_apertura,saldo,id_cliente) values ("Activa",now(),0.0,p_idCliente);
-	SELECT LAST_INSERT_ID() INTO p_numero;
+	
 end ll
 DELIMITER ;
 
@@ -143,6 +142,8 @@ begin
 
 end!!
 DELIMITER ;
+
+
 /*
 DELIMITER ¡¡
 CREATE procedure sp_generarRetiro(

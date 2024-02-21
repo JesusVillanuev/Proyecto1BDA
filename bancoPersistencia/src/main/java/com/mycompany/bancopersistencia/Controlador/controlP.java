@@ -20,6 +20,7 @@ public class controlP {
     IConexioBD conexionBD = new ConexionBD(cadenaConexion, usuario, contrasenia);
     IClienteDAO cliente=new ClienteDAO(conexionBD);
     ICuentaDAO cuenta=new CuentaDOA(conexionBD);
+    IOperacionDAO operacion=new OperacionDAO(conexionBD);
     
     public Cliente agregarCliente(ClienteDTO cliente) throws persistenciaException{
         Cliente cli=this.cliente.registraCliente(cliente);
@@ -45,8 +46,18 @@ public class controlP {
         this.cuenta.cancelarCuenta(cuenta);
     }
     
-    public Cuenta crearCuenta(ClienteDTO cliente)throws persistenciaException{
-        Cuenta cuenta=this.cuenta.crearCuenta(cliente);
-        return cuenta;
+    public void crearCuenta(ClienteDTO cliente)throws persistenciaException{
+        this.cuenta.crearCuenta(cliente);
+        
+    }
+    
+    public List<Operacion> consultaOperacion(CuentaDTO cuenta)throws persistenciaException{
+        List<Operacion> operacio=this.operacion.listaOperaciones(cuenta);
+        return operacio;
+    }
+    
+    public Operacion depositar(CuentaDTO cuenta,float monto)throws persistenciaException{
+        Operacion op=this.operacion.depositar(cuenta, monto);
+        return op;
     }
 }

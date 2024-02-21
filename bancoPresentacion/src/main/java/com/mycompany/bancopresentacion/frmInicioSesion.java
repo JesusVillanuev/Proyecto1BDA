@@ -163,6 +163,8 @@ public class frmInicioSesion extends javax.swing.JFrame {
             cliente.setcontraseña(txtContraseña.getText());
             try {
                 control.iniciarsesion(cliente,frame);
+                txtContraseña.setText("");
+                txtUsuario.setText("");
             } catch (persistenciaException ex) {
                 Logger.getLogger(frmInicioSesion.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -172,17 +174,11 @@ public class frmInicioSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        btnAceptar.setActionCommand("cancelar");
+        
         dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
     
-    public String respuesta(){
-        if (btnAceptar.getActionCommand().equals("aceptar")) {
-            return "aceptar";
-        } else {
-            return "cancelar";
-        }
-    }
+    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

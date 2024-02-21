@@ -14,6 +14,7 @@ public class validadores {
     private static final Pattern patronDomicilio = Pattern.compile("^(?!.*\\s{2,})[0-9a-zA-Z\\p{Punct} ]{1,200}$");
     private static final Pattern patronUsuario = Pattern.compile("^[a-zA-Z0-9]{1,30}$");
     private static final Pattern patronContrasena = Pattern.compile("^[a-zA-Z0-9]{1,30}$");
+    private static final Pattern patronMonto = Pattern.compile("^\\d{1,10}(\\.\\d{1,2})?$");
     
     public validadores(){
         
@@ -33,6 +34,10 @@ public class validadores {
     
     public boolean validaContraseña(String contraseña){
         return patronContrasena.matcher(contraseña).matches();
+    }
+    
+    public boolean validaMonto(String monto) {
+        return patronMonto.matcher(monto).matches();
     }
     
 }

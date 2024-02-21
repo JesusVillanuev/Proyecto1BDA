@@ -7,6 +7,10 @@ import com.mycompany.bancodominio.clasesPojo.Cliente;
 import com.mycompany.bancodominio.clasesPojo.Cuenta;
 import com.mycompany.banconegocio.Control.control;
 import com.mycompany.bancopersistencia.PersistenciaException.persistenciaException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -15,16 +19,20 @@ import javax.swing.table.DefaultTableModel;
  * @author JESUS
  */
 public class frmMenuPrincipal extends javax.swing.JFrame {
+    JFrame frame;
+    Cuenta cuenta;
     DefaultTableModel tabla;
     Cliente cliente;
     control control;
     /**
      * Creates new form frmMenuPrincipal
      */
-    public frmMenuPrincipal(java.awt.Frame parent,String title, boolean modal,Cliente cliente,DefaultTableModel tabla) {
+    public frmMenuPrincipal(JFrame parent,String title, boolean modal,Cliente cliente,DefaultTableModel tabla,Cuenta cuenta) {
+        this.frame=frame;
         control=new control();
         this.tabla=tabla;
         this.cliente=cliente;
+        this.cuenta=cuenta;
         initComponents();
         
     }
@@ -123,6 +131,11 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         jLabel2.setText("¿Deseas cancelar la cuenta?");
 
         btnCancelarCuenta.setText("Si, cancelar");
+        btnCancelarCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarCuentaActionPerformed(evt);
+            }
+        });
 
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -216,11 +229,18 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfiguracionActionPerformed
+        int filaSeleccionada = JCuenta.getSelectedRow();
         
     }//GEN-LAST:event_btnConfiguracionActionPerformed
 
     private void btnDepositoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositoActionPerformed
-        
+        int filaSeleccionada = JCuenta.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            int numeroCuentaSeleccionado = (int)JCuenta.getValueAt(filaSeleccionada, 0);
+            control.deposito(frame, numeroCuentaSeleccionado);
+        }else{
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila en la tabla de id_cuentas.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnDepositoActionPerformed
 
     private void btnRetiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetiroActionPerformed
@@ -232,16 +252,50 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTranseferenciaActionPerformed
 
     private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
-        // TODO add your handling code here:
+        int filaSeleccionada = JCuenta.getSelectedRow();
+
+        if (filaSeleccionada != -1) { 
+            int numeroCuentaSeleccionado = (int)JCuenta.getValueAt(filaSeleccionada, 0);
+            
+            try {
+                control.mostrarHistorial(frame, numeroCuentaSeleccionado);
+            } catch (persistenciaException ex) {
+                Logger.getLogger(frmMenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila en la tabla de id_cuentas.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnHistorialActionPerformed
 
     private void btnCuentaNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCuentaNuevaActionPerformed
-        // TODO add your handling code here:
+        
+            
+            try {
+                control.agregarNueva(cliente);
+            } catch (persistenciaException e) {
+                Logger.getLogger(frmMenuPrincipal.class.getName()).log(Level.SEVERE, null, e);
+            }
+        
     }//GEN-LAST:event_btnCuentaNuevaActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnCancelarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCuentaActionPerformed
+        int filaSeleccionada = JCuenta.getSelectedRow();
+        
+        if (filaSeleccionada != -1) {
+            int numeroCuentaSeleccionado = (int)JCuenta.getValueAt(filaSeleccionada, 0);
+            try {
+                control.cancelar(numeroCuentaSeleccionado);
+            } catch (persistenciaException e) {
+                Logger.getLogger(frmMenuPrincipal.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila en la tabla de id_cuentas.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnCancelarCuentaActionPerformed
 
     
 

@@ -40,20 +40,13 @@ public class CuentaDOA implements ICuentaDAO{
      * @throws PersistenciaException 
      */
     @Override
-    public Cuenta crearCuenta(ClienteDTO cliente) throws persistenciaException {
+    public void crearCuenta(ClienteDTO cliente) throws persistenciaException {
         
         try(Connection con=this.conexionBD.crearConexion();
-            CallableStatement conn=(CallableStatement)con.prepareCall("{call sp_creaCuenta(?, ?)}"))  {
+            CallableStatement conn=(CallableStatement)con.prepareCall("{call sp_crearCuenta(?)}"))  {
             conn.setInt(1, cliente.getIdCliente());
-            conn.registerOutParameter(2, java.sql.Types.INTEGER);
-
+           
             conn.executeUpdate();
-            
-            Cuenta cuentaN=new Cuenta();
-            cuentaN.setNumeroCuenta(conn.getInt(2));
-            
-            System.out.println("Se ha creado una cuenta para el cliente con ID " + cliente.getIdCliente() + ". El número de cuenta es: " + cuentaN.getNumeroCuenta());
-            return cuentaN;
 
         } catch (Exception e) {
             LOG.log(Level.SEVERE,"Fallo al crear cuenta" , e);
@@ -69,17 +62,17 @@ public class CuentaDOA implements ICuentaDAO{
      */
     @Override
     public void cancelarCuenta(CuentaDTO cuenta) throws persistenciaException {
-        String comandoS = "UPDATE cuentas SET estado = 'cancelada' WHERE numero_cuenta = ?";
+        String comandoS = "UPDATE cuentas SET estado = 'cancelada' WHERE id_cuenta = ?";
         try(Connection conexion = this.conexionBD.crearConexion();
             PreparedStatement comandoSQL = conexion.prepareStatement(comandoS);) {
             
-            comandoSQL.setInt(1, cuenta.getNumeroCuenta());
+            comandoSQL.setInt(1, cuenta.getIdCuenta());
             int filasActualizadas = comandoSQL.executeUpdate();
 
             if (filasActualizadas > 0) {
-                System.out.println("La cuenta con el número " + cuenta.getNumeroCuenta() + " ha sido cancelada con éxito.");
+                System.out.println("La cuenta con el id " + cuenta.getIdCuenta() + " ha sido cancelada con éxito.");
             } else {
-                System.out.println("No se encontró ninguna cuenta con el número " + cuenta.getNumeroCuenta());
+                System.out.println("No se encontró ninguna cuenta con el id " + cuenta.getIdCuenta());
             }
             
         } catch (Exception e) {
@@ -98,11 +91,13 @@ public class CuentaDOA implements ICuentaDAO{
             comandoSQL.setInt(1, id);
             try (ResultSet resultado = comandoSQL.executeQuery()) {
                 while (resultado.next()) {
+                    int idC= resultado.getInt("id_cuenta");
                     int numero = resultado.getInt("numero_cuenta");
                     String estado = resultado.getString("estado");
                     String fecha = resultado.getDate("fecha_apertura").toString();
                     float saldo = resultado.getFloat("saldo");
                     Cuenta cuentaNu = new Cuenta();
+                    cuentaNu.setIdCuenta(idC);
                     cuentaNu.setNumeroCuenta(numero);
                     cuentaNu.setEstado(estado);
                     cuentaNu.setFechaApertura(fecha);

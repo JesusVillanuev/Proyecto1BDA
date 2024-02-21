@@ -15,7 +15,10 @@ import com.mycompany.bancopersistencia.DTOS.CuentaDTO;
 import com.mycompany.bancopersistencia.PersistenciaException.persistenciaException;
 import com.mysql.cj.jdbc.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,7 +40,33 @@ public class OperacionDAO implements IOperacionDAO{
 
     @Override
     public List<Operacion> listaOperaciones(CuentaDTO cuenta) throws persistenciaException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String consulta = "SELECT * FROM operaciones WHERE id_cuenta = ?";
+        List<Operacion> operaciones=new ArrayList<>();
+        try(Connection conexion = this.conexionBD.crearConexion();
+            PreparedStatement comandoSQL = conexion.prepareStatement(consulta)) {
+            comandoSQL.setInt(1, cuenta.getIdCuenta()); 
+            
+            try(ResultSet resultado = comandoSQL.executeQuery()) {
+                while(resultado.next()){
+                    
+                    String tipo = resultado.getString("tipo");
+                    float monto = resultado.getFloat("monto");
+                    Timestamp timestamp = resultado.getTimestamp("fecha_hora");
+                    String fecha=timestamp.toString();
+                    Operacion operacion = new Operacion();
+                    operacion.setTipo(tipo);
+                    operacion.setFechaHora(fecha);
+                    operacion.setMonto(monto);
+                    operaciones.add(operacion);
+                    
+                }
+            }
+            LOG.log(Level.INFO, "Se encontraron {0} operaciones", operaciones.size());
+            return operaciones;
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "Error al buscar operaciones", e);
+            throw new persistenciaException("Error al buscar operaciones", e);
+        }
     }
 
     @Override
@@ -51,8 +80,26 @@ public class OperacionDAO implements IOperacionDAO{
     }
 
     @Override
-    public Operacion depositar(CuentaDTO cuenta) throws persistenciaException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Operacion depositar(CuentaDTO cuenta,float monto) throws persistenciaException {
+         String consulta = "UPDATE cuentas SET saldo = saldo + ? WHERE id_cuenta = ?";
+         try(Connection conexion = this.conexionBD.crearConexion();
+            PreparedStatement comandoSQL = conexion.prepareStatement(consulta)) {
+            comandoSQL.setFloat(1, monto);
+            comandoSQL.setInt(2, cuenta.getIdCuenta());
+            
+            int filasAfectadas = comandoSQL.executeUpdate();
+            
+                if (filasAfectadas==1) {
+                    Operacion operacion = new Operacion();
+                    operacion.setTipo("Depósito");
+                    return operacion;
+                }else{
+                    throw new persistenciaException("No se pudo realizar el depósito en la cuenta");
+                }
+        } catch (Exception e) {
+            LOG.log(Level.INFO, "no se puedo depositar", e);
+            throw new persistenciaException("Error al depositar en la cuenta", e);
+        }
     }
     
     

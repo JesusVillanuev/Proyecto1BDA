@@ -4,16 +4,30 @@
  */
 package com.mycompany.bancopresentacion;
 
+import com.mycompany.bancodominio.clasesPojo.Cliente;
+import javax.swing.table.DefaultTableModel;
+import com.mycompany.bancodominio.clasesPojo.Operacion;
+import com.mycompany.banconegocio.Control.control;
+import com.mycompany.bancopersistencia.PersistenciaException.persistenciaException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author JESUS
  */
 public class frmHistorial extends javax.swing.JFrame {
-
+    control control;
+    int id;
+    DefaultTableModel tabla;
     /**
      * Creates new form frmHistorial
      */
-    public frmHistorial() {
+    public frmHistorial(java.awt.Frame parent,String title, boolean modal,Cliente cliente,DefaultTableModel tabla,int id,control control) {
+        this.control=control;
+        this.id=id;
+        this.tabla=tabla;
         initComponents();
     }
 
@@ -59,25 +73,25 @@ public class frmHistorial extends javax.swing.JFrame {
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
         );
 
-        jHistorial.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Id operacion", "Tipo", "Monto", "Fecha"
-            }
-        ));
+        jHistorial.setModel(tabla);
         jScrollPane1.setViewportView(jHistorial);
 
         btnTransferencia.setText("Transferencia");
+        btnTransferencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTransferenciaActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
         jLabel2.setText("Filtro");
 
         btnRetiro.setText("Retiro");
+        btnRetiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRetiroActionPerformed(evt);
+            }
+        });
 
         btnRegresar.setText("Regresar");
 
@@ -138,6 +152,42 @@ public class frmHistorial extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnTransferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransferenciaActionPerformed
+        
+        List<Operacion> operacionesFiltradas = null; 
+        try {
+            operacionesFiltradas = control.mostrarTransferencia(id, "Transferencia");
+        } catch (persistenciaException ex) {
+            Logger.getLogger(frmHistorial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        actualizarTablaOperaciones(operacionesFiltradas);
+    }//GEN-LAST:event_btnTransferenciaActionPerformed
+
+    private void btnRetiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetiroActionPerformed
+        List<Operacion> operaciones=null;
+        try {
+            operaciones= control.mostrarTransferencia(id, "Retiro");
+        } catch (Exception e) {
+            Logger.getLogger(frmHistorial.class.getName()).log(Level.SEVERE, null, e);
+        }
+        actualizarTablaOperaciones(operaciones);
+    }//GEN-LAST:event_btnRetiroActionPerformed
+
+    private void actualizarTablaOperaciones(List<Operacion> operacionesFiltradas) {
+        DefaultTableModel modeloTabla = (DefaultTableModel) jHistorial.getModel();
+        
+        modeloTabla.setRowCount(0);
+
+        
+        for (Operacion operacion : operacionesFiltradas) {
+            Object[] rowData = {operacion.getTipo(), operacion.getFechaHora(), operacion.getMonto()};
+            modeloTabla.addRow(rowData);
+        }
+
+        
+        modeloTabla.fireTableDataChanged();
+    }
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

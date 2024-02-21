@@ -22,6 +22,6 @@ public interface IOperacionDAO {
     public List<Operacion> listaOperaciones(CuentaDTO cuenta)throws persistenciaException;
     public Operacion generarRetiro(CuentaDTO cuenta)throws persistenciaException;
     public Operacion realizarRetiro(int folio,int contraseña)throws persistenciaException;
-    public Operacion depositar(CuentaDTO cuenta)throws persistenciaException;
+    public Operacion depositar(CuentaDTO cuenta,float monto)throws persistenciaException;
     
 }
