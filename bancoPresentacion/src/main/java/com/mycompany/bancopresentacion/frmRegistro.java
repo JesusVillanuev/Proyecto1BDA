@@ -303,7 +303,6 @@ public class frmRegistro extends javax.swing.JFrame {
     private void jCalendar1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendar1PropertyChange
         if (evt.getOldValue()!=null) {
             SimpleDateFormat ff=new SimpleDateFormat("yyyy-MM-dd");
-            txtUsuario.setText(ff.format(jCalendar1.getCalendar().getTime()));
         }
     }//GEN-LAST:event_jCalendar1PropertyChange
     

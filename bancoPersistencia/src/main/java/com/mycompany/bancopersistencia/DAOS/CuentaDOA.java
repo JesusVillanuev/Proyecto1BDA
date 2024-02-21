@@ -41,7 +41,24 @@ public class CuentaDOA implements ICuentaDAO{
      */
     @Override
     public Cuenta crearCuenta(ClienteDTO cliente) throws persistenciaException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        try(Connection con=this.conexionBD.crearConexion();
+            CallableStatement conn=(CallableStatement)con.prepareCall("{call sp_creaCuenta(?, ?)}"))  {
+            conn.setInt(1, cliente.getIdCliente());
+            conn.registerOutParameter(2, java.sql.Types.INTEGER);
+
+            conn.executeUpdate();
+            
+            Cuenta cuentaN=new Cuenta();
+            cuentaN.setNumeroCuenta(conn.getInt(2));
+            
+            System.out.println("Se ha creado una cuenta para el cliente con ID " + cliente.getIdCliente() + ". El número de cuenta es: " + cuentaN.getNumeroCuenta());
+            return cuentaN;
+
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE,"Fallo al crear cuenta" , e);
+            throw new persistenciaException("Fallo", e);
+        }
     }
     
     /**
@@ -51,8 +68,24 @@ public class CuentaDOA implements ICuentaDAO{
      * @throws PersistenciaException 
      */
     @Override
-    public Cuenta cancelarCuenta(CuentaDTO cuenta) throws persistenciaException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void cancelarCuenta(CuentaDTO cuenta) throws persistenciaException {
+        String comandoS = "UPDATE cuentas SET estado = 'cancelada' WHERE numero_cuenta = ?";
+        try(Connection conexion = this.conexionBD.crearConexion();
+            PreparedStatement comandoSQL = conexion.prepareStatement(comandoS);) {
+            
+            comandoSQL.setInt(1, cuenta.getNumeroCuenta());
+            int filasActualizadas = comandoSQL.executeUpdate();
+
+            if (filasActualizadas > 0) {
+                System.out.println("La cuenta con el número " + cuenta.getNumeroCuenta() + " ha sido cancelada con éxito.");
+            } else {
+                System.out.println("No se encontró ninguna cuenta con el número " + cuenta.getNumeroCuenta());
+            }
+            
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE,"Fallo al cancelar cuenta" , e);
+            throw new persistenciaException("Fallo", e);
+        }
     }
 
     @Override

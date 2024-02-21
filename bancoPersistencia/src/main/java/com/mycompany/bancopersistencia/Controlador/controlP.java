@@ -40,4 +40,13 @@ public class controlP {
         List<Cuenta> cuentas=this.cuenta.consultarCuentas(id);
         return cuentas;
     }
+    
+    public void cancelarCuenta(CuentaDTO cuenta) throws persistenciaException{
+        this.cuenta.cancelarCuenta(cuenta);
+    }
+    
+    public Cuenta crearCuenta(ClienteDTO cliente)throws persistenciaException{
+        Cuenta cuenta=this.cuenta.crearCuenta(cliente);
+        return cuenta;
+    }
 }

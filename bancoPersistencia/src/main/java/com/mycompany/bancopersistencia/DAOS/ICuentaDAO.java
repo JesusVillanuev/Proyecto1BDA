@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface ICuentaDAO {
     public Cuenta crearCuenta(ClienteDTO cliente) throws persistenciaException;
-    public Cuenta cancelarCuenta(CuentaDTO cuenta) throws persistenciaException;
+    public void cancelarCuenta(CuentaDTO cuenta) throws persistenciaException;
     public List<Cuenta> consultarCuentas(int id) throws persistenciaException;
     
 }

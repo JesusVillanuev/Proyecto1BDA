@@ -99,5 +99,15 @@ CREATE procedure sp_todasCuentas(
 BEGIN
 	Select numero_cuenta,estado,fecha_apertura,saldo into p_numero,p_estado,p_fecha,p_saldo from cuentas where id_cliente=p_idC;
 end??
+DELIMITER ;
 
+DELIMITER ll
+create procedure sp_crearCuenta(
+	in p_idCliente int,
+	out p_numero int
+)
+begin
+	insert into cuentas(estado,fecha_apertura,saldo,id_cliente) values ("Activa",now(),0.0,p_idCliente);
+	SELECT LAST_INSERT_ID() INTO p_numero;
+end ll
 DELIMITER ;
