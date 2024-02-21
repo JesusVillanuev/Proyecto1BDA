@@ -5,20 +5,27 @@
 package com.mycompany.bancopresentacion;
 import com.mycompany.bancodominio.clasesPojo.Cliente;
 import com.mycompany.banconegocio.Control.control;
+import com.mycompany.bancopersistencia.PersistenciaException.persistenciaException;
 import com.mycompany.bancopresentacion.validadores.validadores;
+import java.awt.Frame;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 /**
  *
  * @author JESUS
  */
 public class frmInicioSesion extends javax.swing.JFrame {
+    JFrame frame;
     Cliente cliente;
     control control;
     validadores valida;
     /**
      * Creates new form frmInicioSesion
      */
-    public frmInicioSesion(java.awt.Frame parent,String title, boolean modal,Cliente cliente,control control) {
+    public frmInicioSesion(JFrame parent,String title, boolean modal,Cliente cliente,control control) {
+        this.frame=parent;
         this.control=control;
         this.cliente=cliente;
         valida=new validadores();
@@ -154,7 +161,11 @@ public class frmInicioSesion extends javax.swing.JFrame {
         if (valida.validaContraseña(txtContraseña.getText()) && valida.validaUsuario(txtUsuario.getText())) {
             cliente.setUsario(txtUsuario.getText());
             cliente.setcontraseña(txtContraseña.getText());
-            control.iniciarsesion(cliente);
+            try {
+                control.iniciarsesion(cliente,frame);
+            } catch (persistenciaException ex) {
+                Logger.getLogger(frmInicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
         }
         

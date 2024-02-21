@@ -90,30 +90,28 @@ public class CuentaDOA implements ICuentaDAO{
 
     @Override
     public List<Cuenta> consultarCuentas(int id) throws persistenciaException {
-        String consulta = "SELECT * FROM cuentas WHERE id_cliente = (?)";
-        List<Cuenta> listaCuentas=new ArrayList<>();
-        
-        try(Connection conexion = this.conexionBD.crearConexion();
-                PreparedStatement comandoSQL = conexion.prepareStatement(consulta);) {
+        String consulta = "SELECT * FROM cuentas WHERE id_cliente = ?";
+        List<Cuenta> listaCuentas = new ArrayList<>();
+
+        try (Connection conexion = this.conexionBD.crearConexion();
+             PreparedStatement comandoSQL = conexion.prepareStatement(consulta)) {
             comandoSQL.setInt(1, id);
-            ResultSet resultado = comandoSQL.executeQuery();
-            
-            resultado.next();
-            
-            while(resultado.next()){
-                int numero=resultado.getInt("numero_cuenta");
-                String estado=resultado.getString("estado");
-                String fecha=resultado.getDate("fecha_apertura").toString();
-                float saldo=resultado.getFloat("saldo");
-                Cuenta cuentaNu=new Cuenta();
-                cuentaNu.setNumeroCuenta(numero);
-                cuentaNu.setEstado(estado);
-                cuentaNu.setFechaApertura(fecha);
-                cuentaNu.setSaldo(saldo);
-                listaCuentas.add(cuentaNu);
+            try (ResultSet resultado = comandoSQL.executeQuery()) {
+                while (resultado.next()) {
+                    int numero = resultado.getInt("numero_cuenta");
+                    String estado = resultado.getString("estado");
+                    String fecha = resultado.getDate("fecha_apertura").toString();
+                    float saldo = resultado.getFloat("saldo");
+                    Cuenta cuentaNu = new Cuenta();
+                    cuentaNu.setNumeroCuenta(numero);
+                    cuentaNu.setEstado(estado);
+                    cuentaNu.setFechaApertura(fecha);
+                    cuentaNu.setSaldo(saldo);
+                    listaCuentas.add(cuentaNu);
+                }
             }
-            LOG.log(Level.INFO, "Se consultaron {0} cuentas", listaCuentas.size());
-            return listaCuentas;
+        LOG.log(Level.INFO, "Se consultaron {0} cuentas", listaCuentas.size());
+        return listaCuentas;
         } catch (Exception e) {
             LOG.log(Level.SEVERE,"Fallo al enviar la lista" , e);
             throw new persistenciaException("Fallo", e);

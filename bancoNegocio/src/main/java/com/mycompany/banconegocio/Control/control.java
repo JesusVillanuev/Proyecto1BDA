@@ -55,20 +55,11 @@ public class control {
         
     }
     
-    public void iniciarsesion(Cliente cliente){
+    public void iniciarsesion(Cliente cliente,JFrame frame) throws persistenciaException{
         int respuesta = JOptionPane.showConfirmDialog(null, "¿Deseas iniciar sesión con ese usuario?", "Confirmar", JOptionPane.OK_CANCEL_OPTION);
         if (respuesta==JOptionPane.OK_OPTION) {
             this.cliente=cliente;
-        }
-    }
-    
-    
-    public void abririniciarSesion(JFrame frame) throws persistenciaException{
-        
-        frmInicioSesion inicio=new frmInicioSesion(frame, "Inicio de sesion", true,cliente,this);
-        inicio.setVisible(true);
-        
-        if (cliente.getUsario()!=null && cliente.getcontraseña()!=null) {
+            if (cliente.getUsario()!=null && cliente.getcontraseña()!=null) {
             
             ClienteDTO cli=new ClienteDTO();
             cli.setUsario(cliente.getUsario());
@@ -76,15 +67,21 @@ public class control {
             cliente=con.InicioSesion(cli);
             if (cliente.getUsario()!=null) {
                 JOptionPane.showMessageDialog(null, "Inicio exitoso");
+                
                 menuPrincipal(frame, cliente);
             }else{
                 JOptionPane.showMessageDialog(null, "Contraseña o usuario incorrecto");
             }
         }
+        }
         
+    }
+    
+    
+    public void abririniciarSesion(JFrame frame) throws persistenciaException{
         
-        
-        
+        frmInicioSesion inicio=new frmInicioSesion(frame, "Inicio de sesion", true,cliente,this);
+        inicio.setVisible(true);
     }
     
     public void menuPrincipal(JFrame frame,Cliente cliente) throws persistenciaException{
@@ -97,6 +94,7 @@ public class control {
         tabla.addColumn("Fecha de Apertura");
         tabla.addColumn("Saldo");
         for (Cuenta cuenta : listaCuentas) {
+            System.out.println(cuenta.getEstado()+"x");
             Object[] rowData = {cuenta.getNumeroCuenta(), cuenta.getEstado(), cuenta.getFechaApertura(), cuenta.getSaldo()};
             tabla.addRow(rowData);
         }
